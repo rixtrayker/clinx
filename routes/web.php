@@ -1,6 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('change-lang', function () {
+    Session::put('locale',request()->lang);
+    return redirect()->back();
+});
 
+
+Route::get('/', function () {
+    return view('welcome');
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Route::group(['prefix' => 'admin'], function() use($locale){
 
-Auth::routes();
+    // });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

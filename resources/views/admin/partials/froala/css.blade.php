@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/font-awesome.min.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/froala_editor.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/froala_style.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/code_view.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/colors.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/emoticons.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/image_manager.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/image.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/line_breaker.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/table.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/char_counter.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/video.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/fullscreen.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/file.css">
+<link rel="stylesheet" href="assets/admin/plugins/froala/css/plugins/codemirror.min.css">
