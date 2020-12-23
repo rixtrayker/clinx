@@ -13,10 +13,18 @@ class CreateAdminPermissionTable extends Migration
      */
     public function up()
     {
+
         Schema::create('admin_permission', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+			$table->increments('id');
+			$table->integer('permission_id')->unsigned()->index()->references('id')->on('permissions')->onDelete('cascade');
+			$table->bigInteger('admin_id')
+                ->unsigned()
+                ->index()
+                ->references('id')
+                ->on('admins')
+                ->onDelete('cascade');
+			$table->timestamps();
+		});
     }
 
     /**
