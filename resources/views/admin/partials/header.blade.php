@@ -2,7 +2,7 @@
 
 <!-- User info -->
 <ul class="user-info pull-left">
-  <li class="profile-info dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false"> <img width="44" class="img-circle avatar" alt="" src="{{url('uploads/admin_images')}}/{{@Adminauth::user()->profile_img}}">{{@Adminauth::user()->name}} <span class="caret"></span></a>
+  <li class="profile-info dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false"> <img width="44" class="img-circle avatar" alt="" src="{{url('uploads/admin_images')}}/{{@Auth::guard('admin')->user()->profile_img}}">{{@Auth::guard('admin')->user()->name}} <span class="caret"></span></a>
 
   <!-- User action menu -->
   <ul class="dropdown-menu">
