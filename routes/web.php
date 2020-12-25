@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
-
+use App\Http\Controllers\Admin\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +33,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    // Route::group(['prefix' => 'admin'], function() use($locale){
 
-    // });
+Route::group([
+    'prefix' => 'admin',
+    // 'middleware' => ['auth', 'acl'],
+], function () {
+    Route::resource('roles', RoleController::class);
+
+    }
+);
+
 

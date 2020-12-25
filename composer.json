@@ -19,6 +19,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
+        "lesichkovm/laravel-advanced-route": "^1.8",
         "mcamara/laravel-localization": "^1.6"
     },
     "require-dev": {

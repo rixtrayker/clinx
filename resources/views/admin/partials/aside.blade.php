@@ -25,6 +25,9 @@
       @if(ACL::can('index-patients'))
         <li class="{{(Request::is('admin/patients') || Request::is(App::getLocale().'/admin/patients'))?"active":""}}"><a href="{{url(App::getLocale()."/admin/patients")}}"><i class="icon-archive"></i><span class="title">عرض الاطفال</span></a></li>
       @endif --}}
+      @if(Auth::guard('admin')->user()->super_admin)
+        <li class="{{(Request::is('admin/roles') || Request::is(App::getLocale().'/admin/roles'))?"active":""}}"><a href="{{url("/admin/roles")}}"><i class="icon-archive"></i><span class="title">@lang('admin.Roles')</span></a></li>
+      @endif
     {{-- @endif --}}
     <li class="{{(Request::is('admin/patients/create') || Request::is(App::getLocale().'/admin/patients/create'))?"active":""}}"><a href="{{url(App::getLocale()."/admin/patients/create")}}"><i class="icon-plus"></i><span class="title">انشاء ملف طفل جديد</span></a></li>
 

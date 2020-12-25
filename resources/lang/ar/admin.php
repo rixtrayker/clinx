@@ -72,7 +72,7 @@ return [
     'Slug' => 'Slug',
     'Category' => 'Category',
     'Role' => 'Role',
-    'Roles' => 'Roles',
+    'Roles' => 'الوظايف',
     'Sign in' => 'Sign in',
     'Enter your email' => 'Enter your email',
     'Enter your password' => 'Enter your password',
@@ -454,7 +454,7 @@ return [
     'Cashier' => 'المحاسب',
     'List Shipments' => 'عرض الشحنات',
     'Technician' => 'صنايعي',
-	 'Technicians' => 'الصنايعية',
-	     'Arabic' => 'العربى',
-
+	'Technicians' => 'الصنايعية',
+    'Arabic' => 'العربى',
+    'Create' => 'اضافة',
 ];
