@@ -51,7 +51,8 @@ class RolesController extends Administrator {
           SaveActionLog($request->path());
 
             flash()->success(trans('admin.Add successfull'));
-            return redirect(App::getLocale().'/admin/' . $this->module . '');
+            return redirect('/admin/' . $this->module . '');
+
         }
 
         flash()->error(trans('admin.failed to save'));
@@ -73,7 +74,8 @@ class RolesController extends Administrator {
         $this->validate($request, $rules);
         if ($row->update($request->except([]))) {
             flash()->success(trans('admin.Edit successfull'));
-            return redirect(App::getLocale().'/admin/' . $this->module . '' );
+            return redirect('/admin/' . $this->module . '');
+
         }
         flash()->error(trans('admin.failed to save'));
     }
@@ -101,9 +103,11 @@ class RolesController extends Administrator {
           SaveActionLog('admin/add_permission/create');
 
           flash()->success(trans('admin.Permission set successfull'));
-          return redirect(App::getLocale().'/admin/' . $this->module . '');
+          return redirect('/admin/' . $this->module . '');
         } catch (\Exception $e) {
           flash()->error(trans('admin.failed to save'));
         }
     }
+
+    
 }

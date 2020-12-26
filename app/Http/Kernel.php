@@ -68,6 +68,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        'AdminAuthenticate' => \App\Http\Middleware\AdminAuthenticate::class,
+        'AclAuthenticate' => \App\Http\Middleware\AclAuthenticate::class,
+        'AdminIsAuth' => \App\Http\Middleware\AdminIsAuthnticated::class,
+        'IsAuth' => \App\Http\Middleware\IsAuthnticated::class,
         /**** Localization MIDDLEWARE ****/
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,

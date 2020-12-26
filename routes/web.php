@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\AdminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +41,10 @@ Route::group([
     // 'middleware' => ['auth', 'acl'],
 ], function () {
     // Route::resource('roles', RoleController::class);
-    AdvancedRoute::controller('roles', 'Admin\RoleController');
+    Route::get('update-password', [AdminController::class, 'getUpdatePassword']);
+    Route::post('update-password', [AdminController::class, 'postUpdatePassword']);
+
+    AdvancedRoute::controller('roles', 'Admin\RolesController');
 
 
     }
