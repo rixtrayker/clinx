@@ -41,10 +41,11 @@ Route::group([
     // 'middleware' => ['auth', 'acl'],
 ], function () {
     // Route::resource('roles', RoleController::class);
-    Route::get('update-password', [AdminController::class, 'getUpdatePassword']);
-    Route::post('update-password', [AdminController::class, 'postUpdatePassword']);
+    // Route::get('update-password', [AdminController::class, 'getUpdatePassword']);
+    // Route::post('update-password', [AdminController::class, 'postUpdatePassword']);
+    AdvancedRoute::controller('roles', 'App\Http\Controllers\Admin\RolesController');
+    // AdvancedRoute::controller('admins', 'Admin\AdminController');
 
-    AdvancedRoute::controller('roles', 'Admin\RolesController');
 
 
     }

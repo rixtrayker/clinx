@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use Auth;
 
-class RoleController extends Controller
+class
+ extends Controller
 {
     public $model;
     public $module;

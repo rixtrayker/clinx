@@ -18,6 +18,7 @@ class Administrator extends Controller
         $this->middleware('AdminAuthenticate');
         $this->middleware('AclAuthenticate', ['except' => ['getDeleteImage']]);
 
+
         $this->middleware('acl');
         Session::put('locales', Config::get('app.locales'));
 
