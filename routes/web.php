@@ -38,7 +38,9 @@ Route::group([
     'prefix' => 'admin',
     // 'middleware' => ['auth', 'acl'],
 ], function () {
-    Route::resource('roles', RoleController::class);
+    // Route::resource('roles', RoleController::class);
+    AdvancedRoute::controller('roles', 'Admin\RoleController');
+
 
     }
 );

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-  <h1 class="page-title">{{trans('admin.Roles')}}</h1>
+  <h1 class="page-title">{{trans('admin.Jobs')}}</h1>
 @stop
 
 @section('content')
@@ -51,9 +51,9 @@ color: #ffffff;
     <div class="col-lg-12 animatedParent animateOnce z-index-50">
       <div class="panel panel-default animated fadeInUp">
         <div class="panel-heading clearfix">
-        @role('super-admin')
-          <a href="admin/{{$module}}/create" class="btn btn-success">@lang('admin.Create')<i class="fa fa-plus"></i></a>
-        @endrole
+          @if(ACL::can('create-'.$module))
+          <a href="admin/{{$module}}/create" class="btn btn-success">إضافة<i class="fa fa-plus"></i></a>
+          @endif
           <ul class="panel-tool-options">
             <li><a data-rel="collapse" href="#"><i class="icon-down-open"></i></a></li>
           </ul>

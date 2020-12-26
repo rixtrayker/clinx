@@ -19,6 +19,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
+        "laravelcollective/html": "^6.2",
         "lesichkovm/laravel-advanced-route": "^1.8",
         "mcamara/laravel-localization": "^1.6"
     },
@@ -41,11 +42,21 @@
         }
     },
     "autoload": {
+        "classmap": [
+            "database",
+			"app/Libs",
+            "app/Helpers"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
+		,
+        "files": [
+            "app/Helpers/Functions.php",
+			"app/Libs/Adminauth.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

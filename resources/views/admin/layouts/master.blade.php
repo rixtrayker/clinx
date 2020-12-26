@@ -3,7 +3,6 @@
 <head>
 	@include('admin.partials.meta')
 	@include('admin.partials.css')
-    {{-- <link href="css/all.css" rel="stylesheet"> --}}
 	@yield('styles')
 </head>
 <body>
@@ -47,8 +46,7 @@
 <!-- /page container -->
 
 <!--Load JQuery-->
-{{-- @include('admin.partials.js') --}}
-<script src="/js/all.js"></script>
+@include('admin.partials.js')
 @yield('javascripts')
 </body>
 </html>

@@ -50,9 +50,9 @@
 
 
 
-@if(Auth::guard('admin')->user())
+@if(App\Libs\Adminauth::user())
 
-@if(Auth::guard('admin')->user()->id == 2)
+ @if(App\Libs\Adminauth::user()->id == 2)
      <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
      <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
      <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-database.js"></script>
