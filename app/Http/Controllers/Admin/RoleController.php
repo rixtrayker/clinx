@@ -6,14 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use Auth;
-
-class
- extends Controller
+use App\Services\Admin\RoleService;
+class RoleController extends Controller
 {
     public $model;
     public $module;
     public $rules;
-
+    protected $roleService;
     // protected $protect_methods = [
     //     'create' => ['store'],    // protects store() method on create.user (create.alias)
     //     'view'   => ['index', 'create', 'show', 'edit'],     // protects index(), create(), show(), edit() methods on view.user permission.
@@ -26,17 +25,15 @@ class
         // parent::__construct();
         $this->module = 'roles';
         $this->model = $model;
-        $this->rules = [
-            'name' => 'required|unique:roles,name',
-            'description' => 'required'
-        ];
+        $this->roleService = new RoleService($model);
+
     }
 
     public function index()
     {
-        // Auth::guard('admin')->user()->can('view.role');
-        $rows = $this->model->latest();
-        $rows = $rows->get();
+        // authorize('view-' . $this->module);
+        $rows = $roleService->index();
+
         return view('admin.' . $this->module . '.index', ['rows' => $rows, 'module' => $this->module]);
     }
 
@@ -47,7 +44,10 @@ class
      */
     public function create()
     {
-        //
+        // authorize('create-'.$this->module);
+        $row = $this->model;
+        return view('admin.' . $this->module . '.create', ['row' => $row, 'module' => $this->module]);
+
     }
 
     /**
@@ -58,7 +58,15 @@ class
      */
     public function store(Request $request)
     {
-        //
+        // authorize('create-'.$this->module);
+        $row = $roleService->store($request->except([]), $request->path());
+        if ($row) {
+            flash()->success(trans('admin.Add successfull'));
+            return redirect('/admin/' . $this->module . '');
+        }
+
+        flash()->error(trans('admin.failed to save'));
+
     }
 
     /**
@@ -69,7 +77,7 @@ class
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -80,7 +88,9 @@ class
      */
     public function edit($id)
     {
-        //
+        // authorize('edit-'.$this->module);
+        $row = $this->roleService->show($id);
+        return view('admin.' . $this->module . '.edit', ['row' => $row, 'module' => $this->module]);
     }
 
     /**
@@ -92,7 +102,13 @@ class
      */
     public function update(Request $request, $id)
     {
-        //
+        // authorize('edit-'.$this->module);
+        $row = $this->roleService->update($request->except([]),$id);
+        if ($status){
+            flash()->success(trans('admin.Edit successfull'));
+            return redirect('/admin/' . $this->module . '');
+        }
+        flash()->error(trans('admin.failed to save'));
     }
 
     /**
@@ -103,6 +119,9 @@ class
      */
     public function destroy($id)
     {
-        //
+        // authorize('delete-'.$this->module);
+        $this->roleService->destroy($id);
+        flash()->success(trans('admin.Delete successfull'));
+        return back();
     }
 }

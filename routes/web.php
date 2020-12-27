@@ -40,7 +40,7 @@ Route::group([
     'prefix' => 'admin',
     // 'middleware' => ['auth', 'acl'],
 ], function () {
-    // Route::resource('roles', RoleController::class);
+    Route::resource('roles', RoleController::class);
     // Route::get('update-password', [AdminController::class, 'getUpdatePassword']);
     // Route::post('update-password', [AdminController::class, 'postUpdatePassword']);
     AdvancedRoute::controller('roles', 'App\Http\Controllers\Admin\RolesController');

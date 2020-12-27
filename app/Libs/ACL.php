@@ -15,7 +15,10 @@ class ACL {
             return true;
         }
         $user = Adminauth::user();
-        if (!$user) return redirect("admin/auth/login");
+        if (!$user) {
+            return redirect("admin/login");
+        }
+
         if (@$user->super_admin) return true;
         $permissions = Group_permission::where('role_id',$user->role_id)->get()->pluck('permission_id')->toArray();
 

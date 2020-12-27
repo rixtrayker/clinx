@@ -109,5 +109,4 @@ class RolesController extends Administrator {
         }
     }
 
-    
 }

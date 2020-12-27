@@ -15,8 +15,9 @@ class Administrator extends Controller
 {
     public function __construct()
     {
-        $this->middleware('AdminAuthenticate');
-        $this->middleware('AclAuthenticate', ['except' => ['getDeleteImage']]);
+        // $this->middleware('AdminAuthenticate');
+        // $this->middleware('AclAuthenticate', ['except' => ['getDeleteImage']]);
+
 
 
         $this->middleware('acl');

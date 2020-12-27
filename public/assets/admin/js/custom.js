@@ -1,3 +1,0 @@
-$(function () {
- $('#lfm').filemanager('image');
-});
