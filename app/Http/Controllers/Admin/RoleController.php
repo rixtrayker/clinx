@@ -32,7 +32,8 @@ class RoleController extends Administrator
     public function index()
     {
         // authorize('view-' . $this->module);
-        $rows = $roleService->index();
+        $rows = $this->roleService->index();
+
 
         return view('admin.' . $this->module . '.index', ['rows' => $rows, 'module' => $this->module]);
     }
@@ -59,7 +60,8 @@ class RoleController extends Administrator
     public function store(Request $request)
     {
         // authorize('create-'.$this->module);
-        $row = $roleService->store($request->except([]), $request->path());
+        $row = $this->roleService->store($request->except([]), $request->path());
+
         if ($row) {
             flash()->success(trans('admin.Add successfull'));
             return redirect('/admin/' . $this->module . '');

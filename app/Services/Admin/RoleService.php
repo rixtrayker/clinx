@@ -41,7 +41,8 @@ class RoleService
     public function store($data,$requestPath)
     {
         $this->validate($data, $this->rules);
-        $row = $this->model->create($data)
+        $row = $this->model->create($data);
+
         if($row) SaveActionLog($requestPath);
         return $row;
     }
@@ -61,7 +62,7 @@ class RoleService
             $row->update($data);
             return true;
         }
-        catch (Exception e){
+        catch (Exception $e){
             return null;
         }
     }
@@ -72,7 +73,7 @@ class RoleService
             $row->delete($data);
             return true;
         }
-        catch (Exception e){
+        catch (Exception $e){
             return null;
         }
     }
