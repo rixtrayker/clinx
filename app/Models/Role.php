@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Kodeine\Acl\Models\Eloquent\Role as rol;
-
+use Spatie\Permission\Models\Role as rol;
 class Role extends rol
 {
     use HasFactory;
