@@ -1108,7 +1108,7 @@ if (typeof jQuery.validator === 'function') {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/amr/Sites/markeza/admin-mk-laravel-html/resources/js/core/app.js */"./resources/js/core/app.js");
+module.exports = __webpack_require__(/*! /Users/amr/Sites/markeza/clinics/resources/js/core/app.js */"./resources/js/core/app.js");
 
 
 /***/ })
