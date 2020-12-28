@@ -43,7 +43,7 @@
         <h4 class="card-title mb-1">Welcome to KIDS CLINIC👋</h4>
         <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
 
-        <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
+        <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.login') }}">
           @csrf
           <div class="form-group">
             <label for="login-email" class="form-label">Email</label>
@@ -59,7 +59,7 @@
             <div class="d-flex justify-content-between">
               <label for="login-password">Password</label>
               @if (Route::has('password.request'))
-              <a href="{{ route('password.request') }}">
+              <a href="{{ route('admin.password.request') }}">
                 <small>Forgot Password?</small>
               </a>
               @endif
@@ -83,7 +83,7 @@
         <p class="text-center mt-2">
           <span>New on our platform?</span>
           @if (Route::has('register'))
-          <a href="{{ route('register') }}">
+          <a href="{{ route('admin.register') }}">
             <span>Create an account</span>
           </a>
           @endif

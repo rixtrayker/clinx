@@ -78,9 +78,14 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function showRegistrationForm()
     {
-        return view('admin.auth.register');
+        $pageConfigs = ['blankPage' => true];
+
+        return view('admin.auth.register', [
+        'pageConfigs' => $pageConfigs
+        ]);
     }
 
     /**

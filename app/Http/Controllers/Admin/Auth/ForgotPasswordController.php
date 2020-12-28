@@ -36,11 +36,16 @@ class ForgotPasswordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLinkRequestForm()
-    {
-        return view('admin.auth.passwords.email');
-    }
+    public function showLinkRequestForm(){
+        $pageConfigs = [
+          'bodyClass' => "bg-full-screen-image",
+          'blankPage' => true
+        ];
 
+        return view('admin.auth.passwords.email', [
+          'pageConfigs' => $pageConfigs
+        ]);
+      }
     /**
      * Get the broker to be used during password reset.
      *

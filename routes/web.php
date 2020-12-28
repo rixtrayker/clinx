@@ -43,7 +43,8 @@ Route::group([
     Route::resource('roles', RoleController::class);
     // Route::get('update-password', [AdminController::class, 'getUpdatePassword']);
     // Route::post('update-password', [AdminController::class, 'postUpdatePassword']);
-    AdvancedRoute::controller('roles', 'App\Http\Controllers\Admin\RolesController');
+    // AdvancedRoute::controller('roles', 'App\Http\Controllers\Admin\RoleController');
+
     // AdvancedRoute::controller('admins', 'Admin\AdminController');
 
 

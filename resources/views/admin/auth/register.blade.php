@@ -43,7 +43,7 @@
         <h4 class="card-title mb-1">Adventure starts here 🚀</h4>
         <p class="card-text mb-2">Make your app management easy and fun!</p>
 
-        <form class="auth-register-form mt-2" method="POST" action="{{ route('register') }}">
+        <form class="auth-register-form mt-2" method="POST" action="{{ route('admin.register') }}">
           @csrf
           <div class="form-group">
             <label for="register-username" class="form-label">Username</label>
@@ -105,7 +105,7 @@
         <p class="text-center mt-2">
           <span>Already have an account?</span>
           @if (Route::has('login'))
-          <a href="{{ route('login') }}">
+          <a href="{{ route('admin.login') }}">
             <span>Sign in instead</span>
           </a>
           @endif

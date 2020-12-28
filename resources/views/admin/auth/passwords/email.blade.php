@@ -43,7 +43,7 @@
         <h4 class="card-title mb-1">Forgot Password? 🔒</h4>
         <p class="card-text mb-2">Enter your email and we'll send you instructions to reset your password</p>
 
-        <form class="auth-forgot-password-form mt-2" method="POST" action="{{ route('password.email') }}">
+        <form class="auth-forgot-password-form mt-2" method="POST" action="{{ route('admin.password.email') }}">
           @csrf
           <div class="form-group">
             <label for="forgot-password-email" class="form-label">Email</label>
@@ -59,7 +59,7 @@
 
         <p class="text-center mt-2">
           @if (Route::has('login'))
-          <a href="{{ route('login') }}"> <i data-feather="chevron-left"></i> Back to login </a>
+          <a href="{{ route('admin.login') }}"> <i data-feather="chevron-left"></i> Back to login </a>
           @endif
         </p>
       </div>

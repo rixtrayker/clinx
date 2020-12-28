@@ -44,7 +44,7 @@
         <h4 class="card-title mb-1">Welcome to Vuexy! 👋</h4>
         <p class="card-text mb-2">Please confirm your password before continuing.</p>
 
-        <form class="auth-login-form mt-2" method="POST" action="{{ route('password.confirm') }}">
+        <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.password.confirm') }}">
           @csrf
 
           <div class="form-group">
@@ -61,7 +61,7 @@
 
         <p class="text-center mt-2">
           @if (Route::has('password.request'))
-          <a class="btn btn-link" href="{{ route('password.request') }}">
+          <a class="btn btn-link" href="{{ route('admin.password.request') }}">
             {{ __('Forgot Your Password?') }}
           </a>
           @endif
