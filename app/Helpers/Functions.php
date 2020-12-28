@@ -9,15 +9,17 @@
  * @param  string  $locale
  * @return string
  */
-//  function SaveActionLog($path){
-//    $user=\App\Libs\Adminauth::user();
-//    $data;
-//    $data['admin_name']=$user['name'];
-//    $data['admin_id']=$user['id'];
-//    $slug=explode('/',$path);
-//    $data['action']=$slug[2].' '.$slug[1];
-//    \App\Models\ActionLog::create($data);
-//  }
+ function SaveActionLog($path)
+ {
+     $user=\App\Libs\Adminauth::user();
+     $data = [];
+     $data['admin_name']=$user['name'];
+     $data['admin_id']=$user['id'];
+     $slug=explode('/', $path);
+     $data['action']=$slug[2].' '.$slug[1];
+     \App\Models\ActionLog::create($data);
+ }
+
 function authorize($action)
 {
     if (\App\Libs\ACL::cant($action)) {

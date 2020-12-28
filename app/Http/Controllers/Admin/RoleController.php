@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
-use Auth;
 use App\Services\Admin\RoleService;
-class RoleController extends Controller
+use App\Http\Controllers\Administrator;
+class RoleController extends Administrator
 {
     public $model;
     public $module;
