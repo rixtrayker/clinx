@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Services\Admin\RoleService;
 use App\Http\Controllers\Administrator;
+use App;
 class RoleController extends Administrator
 {
     public $model;
@@ -123,4 +124,26 @@ class RoleController extends Administrator
         flash()->success(trans('admin.Delete successfull'));
         return back();
     }
+
+    public function getPermissions($id) {
+        // authorize('create-'.$this->module);
+        $row = $this->model->findOrFail($id);
+        $permissions = \App\Models\Permission::all();
+        return view('admin.' . $this->module . '.permissions', ['permissions'=>$permissions,'row' => $row, 'module' => $this->module]);
+    }
+
+    public function postPermissions($id, Request $request) {
+        $row = $this->model->findOrFail($id);
+        // authorize('create-'.$this->module);
+        try {
+          $row->permissions()->sync((array) $request->input('role_list'));
+          SaveActionLog('admin/add_permission/create');
+
+          flash()->success(trans('admin.Permission set successfull'));
+          return redirect(App::getLocale().'/admin/' . $this->module . '');
+        } catch (\Exception $e) {
+          flash()->error(trans('admin.failed to save'));
+        }
+    }
+
 }
