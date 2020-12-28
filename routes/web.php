@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminHomeController;
+
 
 
 /*
@@ -34,20 +36,25 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group([
     'prefix' => 'admin',
     // 'middleware' => ['auth', 'acl'],
 ], function () {
+
+    Route::get('/', [AdminHomeController::class,'index']);
+
+    Route::get('/', function (){
+        dd(1);
+    });
+
     Route::resource('roles', RoleController::class);
     // Route::get('update-password', [AdminController::class, 'getUpdatePassword']);
     // Route::post('update-password', [AdminController::class, 'postUpdatePassword']);
     // AdvancedRoute::controller('roles', 'App\Http\Controllers\Admin\RoleController');
 
     // AdvancedRoute::controller('admins', 'Admin\AdminController');
-
-
 
     }
 );
