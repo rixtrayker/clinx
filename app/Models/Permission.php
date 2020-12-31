@@ -9,4 +9,5 @@ use Spatie\Permission\Models\Permission as perm;
 class Permission extends perm
 {
     use HasFactory;
+    protected $hidden = [];
 }

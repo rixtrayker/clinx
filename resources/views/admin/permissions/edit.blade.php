@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title',__('admin.Edit'))
+@section('title', __('admin.Edit'))
 
 @section('vendor-style')
   {{-- vendor css files --}}
@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-12">
 
-{!! Form::model($row, ['url' => route('roles.update',$row->id), 'method' => 'post','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data'] ) !!}
+{!! Form::model($row, ['url' => route($module.'.update',$row->id), 'method' => 'post','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data'] ) !!}
 @method('PUT')
 @include('admin.'.$module.'.form',$row)
 {!! Form::submit(trans('admin.Save') ,['class' => 'btn btn-primary']) !!}

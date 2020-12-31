@@ -15,7 +15,7 @@ $configData = Helper::applClasses();
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>@yield('title') - Vuexy Vuejs, HTML & Laravel Admin Dashboard Template</title>
+  <title>@yield('title') - </title>
   <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo/favicon.ico')}}">
 
   {{-- Include core + vendor Styles --}}
@@ -55,8 +55,16 @@ $configData = Helper::applClasses();
         });
       }
     })
+    </script>
+    <script>
+            $('#logout_a').click(function(){
+                $('#logout').submit();
+            });
 
-  </script>
+        // function logout(){
+        //     $('#logout').submit();
+        // }
+    </script>
 </body>
 
 </html>

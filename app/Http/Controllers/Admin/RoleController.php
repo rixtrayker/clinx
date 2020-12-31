@@ -7,12 +7,15 @@ use App\Models\Role;
 use App\Services\Admin\RoleService;
 use App\Http\Controllers\Administrator;
 use App;
+use App\Models\Permission;
+
 class RoleController extends Administrator
 {
     public $model;
     public $module;
     public $rules;
     protected $roleService;
+
     // protected $protect_methods = [
     //     'create' => ['store'],    // protects store() method on create.user (create.alias)
     //     'view'   => ['index', 'create', 'show', 'edit'],     // protects index(), create(), show(), edit() methods on view.user permission.
@@ -26,16 +29,29 @@ class RoleController extends Administrator
         $this->module = 'roles';
         $this->model = $model;
         $this->roleService = new RoleService($model);
+    }
 
+    public function index_data()
+    {
+        // authorize('view-' . $this->module);
+        $rows = $this->roleService->index();
+        dd(1);
+        return \apiResponse(200,'',$rows);
     }
 
     public function index()
     {
         // authorize('view-' . $this->module);
         $rows = $this->roleService->index();
+        $breadcrumbs = [
+            ['link' => "/admin", 'name' => __('admin.Home')], [ 'name' => __('admin.Roles')],
+          ];
+          return view('admin.' . $this->module . '.index', [
+            'breadcrumbs' => $breadcrumbs,
+            'rows' => $rows,
+             'module' => $this->module
+          ]);
 
-
-        return view('admin.' . $this->module . '.index', ['rows' => $rows, 'module' => $this->module]);
     }
 
     /**
@@ -47,7 +63,8 @@ class RoleController extends Administrator
     {
         // authorize('create-'.$this->module);
         $row = $this->model;
-        return view('admin.' . $this->module . '.create', ['row' => $row, 'module' => $this->module]);
+        $permissions = Permission::all();
+        return view('admin.' . $this->module . '.create', ['row' => $row, 'module' => $this->module,'permissions' => $permissions ]);
 
     }
 
@@ -60,7 +77,7 @@ class RoleController extends Administrator
     public function store(Request $request)
     {
         // authorize('create-'.$this->module);
-        $row = $this->roleService->store($request->except([]), $request->path());
+        $row = $this->roleService->store($request->except([]));
 
         if ($row) {
             flash()->success(trans('admin.Add successfull'));
@@ -92,7 +109,8 @@ class RoleController extends Administrator
     {
         // authorize('edit-'.$this->module);
         $row = $this->roleService->show($id);
-        return view('admin.' . $this->module . '.edit', ['row' => $row, 'module' => $this->module]);
+        $permissions = Permission::all();
+        return view('admin.' . $this->module . '.edit', ['row' => $row, 'module' => $this->module,'permissions' => $permissions ]);
     }
 
     /**
@@ -106,7 +124,7 @@ class RoleController extends Administrator
     {
         // authorize('edit-'.$this->module);
         $row = $this->roleService->update($request->except([]),$id);
-        if ($status){
+        if ($row){
             flash()->success(trans('admin.Edit successfull'));
             return redirect('/admin/' . $this->module . '');
         }

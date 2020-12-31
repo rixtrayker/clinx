@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/vendors.min.css')) }}" />
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/ui/prism.min.css')) }}" />
+{{-- <link rel="stylesheet" href="{{ asset('css/custom-markeza.css') }}" /> --}}
 {{-- Vendor Styles --}}
 @yield('vendor-style')
 {{-- Theme Styles --}}

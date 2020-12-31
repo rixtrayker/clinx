@@ -24,7 +24,7 @@
         <div class="card">
           <div class="card-header border-bottom">
             <h4 class="card-title">@lang('admin.Roles')</h4>
-            <a class=" text-lg btn-lg btn-primary btn-round waves-effect waves-float waves-light" href="{{route('roles.create')}}"> <i data-feather='plus' class="text-3xl mr-1"></i> @lang('admin.Create')</a>
+            <a class=" text-lg btn-lg btn-primary btn-round waves-effect waves-float waves-light" href="{{route($module.'.create')}}"> <i data-feather='plus' class="text-3xl mr-1"></i> @lang('admin.Create')</a>
           </div>
           <div class="card-datatable px-3">
             {{-- <table class="dt-column-search table table-responsive">
@@ -44,7 +44,7 @@
                         <th>#</th>
 
                         <th>@lang('admin.Name')</th>
-                        <th>@lang('admin.Permissions')</th>
+                        <th>@lang('admin.Guard name')</th>
                         <th>@lang('admin.Action')</th>
 
                     </tr>
@@ -55,19 +55,19 @@
                         <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$record->name}}</td>
-                                <td>{{$record->gurad_name}}</td>
+                                <td>{{$record->guard_name}}</td>
                                 <td>
                                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="true">@lang('admin.Action')</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{route('roles.edit', $record->id)}}"><i class="fa fa-edit"></i> @lang('admin.Edit')</a>
+                                        <a class="dropdown-item" href="{{route($module.'.edit', $record->id)}}"><i class="fa fa-edit"></i> @lang('admin.Edit')</a>
                                         <a class="dropdown-item" data-toggle="modal" href="#myModal-{{ $record->id }}"><i class="fa fa-trash"></i> @lang('admin.Delete')</a>
                                     </div>
                                         <div class="modal fade" id="myModal-{{ $record->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-body">
-                                        <form role="form" action="{{ route('roles.destroy',$record->id) }}" class="" method="POST">
+                                        <form role="form" action="{{ route($module.'.destroy',$record->id) }}" class="" method="POST">
                                         <input name="_method" type="hidden" value="DELETE">
                                         {{ csrf_field() }}
                                         <p>are you sure</p>

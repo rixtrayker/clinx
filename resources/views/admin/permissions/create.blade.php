@@ -45,7 +45,7 @@
                     <div class="col-12">
 
 
-            {!! Form::model($row, ['url' => route('roles.store'), 'method' => 'post','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data'] ) !!}
+            {!! Form::model($row, ['url' => route($module.'.store'), 'method' => 'post','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data'] ) !!}
             @include('admin.'.$module.'.form',$row)
             {!! Form::submit(trans('admin.Save') ,['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}
@@ -73,18 +73,16 @@
 @endsection
 
 @section('page-script')
-<script>
-    var select = $('.select2');
-    select.each(function () {
-      var $this = $(this);
-      $this.wrap('<div class="position-relative"></div>');
-      $this.select2({
-        // the following code is used to disable x-scrollbar when click in select input and
-        // take 100% width in responsive also
-        dropdownAutoWidth: true,
-        width: '100%',
-        dropdownParent: $this.parent()
-      });
-    });
-</script>
+var select = $('.select2');
+select.each(function () {
+  var $this = $(this);
+  $this.wrap('<div class="position-relative"></div>');
+  $this.select2({
+    // the following code is used to disable x-scrollbar when click in select input and
+    // take 100% width in responsive also
+    dropdownAutoWidth: true,
+    width: '100%',
+    dropdownParent: $this.parent()
+  });
+});
 @endsection

@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title', __('admin.Roles'))
+@section('title', __('admin.Children'))
 
 @section('vendor-style')
   {{-- vendor css files --}}
@@ -23,8 +23,8 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header border-bottom">
-            <h4 class="card-title">@lang('admin.Roles')</h4>
-            <a class=" text-lg btn-lg btn-primary btn-round waves-effect waves-float waves-light" href="{{route('roles.create')}}"> <i data-feather='plus' class="text-3xl mr-1"></i> @lang('admin.Create')</a>
+            <h4 class="card-title">@lang('admin.Children')</h4>
+            <a class=" text-lg btn-lg btn-primary btn-round waves-effect waves-float waves-light" href="{{route($module.'.create')}}"> <i data-feather='plus' class="text-3xl mr-1"></i> @lang('admin.Create')</a>
           </div>
           <div class="card-datatable px-3">
             {{-- <table class="dt-column-search table table-responsive">
@@ -42,32 +42,32 @@
                 <thead>
                     <tr>
                         <th>#</th>
-
                         <th>@lang('admin.Name')</th>
-                        <th>@lang('admin.Permissions')</th>
+                        <th>@lang('admin.Telephone')</th>
+                        <th>@lang('admin.Clinic')</th>
                         <th>@lang('admin.Action')</th>
 
                     </tr>
                 </thead>
-                <tbody>
+                {{-- <tbody>
                         @foreach ($rows as $record)
 
                         <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$record->name}}</td>
-                                <td>{{$record->gurad_name}}</td>
+                                <td>{{$record->guard_name}}</td>
                                 <td>
                                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="true">@lang('admin.Action')</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{route('roles.edit', $record->id)}}"><i class="fa fa-edit"></i> @lang('admin.Edit')</a>
+                                        <a class="dropdown-item" href="{{route($module.'.edit', $record->id)}}"><i class="fa fa-edit"></i> @lang('admin.Edit')</a>
                                         <a class="dropdown-item" data-toggle="modal" href="#myModal-{{ $record->id }}"><i class="fa fa-trash"></i> @lang('admin.Delete')</a>
                                     </div>
                                         <div class="modal fade" id="myModal-{{ $record->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-body">
-                                        <form role="form" action="{{ route('roles.destroy',$record->id) }}" class="" method="POST">
+                                        <form role="form" action="{{ route($module.'.destroy',$record->id) }}" class="" method="POST">
                                         <input name="_method" type="hidden" value="DELETE">
                                         {{ csrf_field() }}
                                         <p>are you sure</p>
@@ -82,9 +82,10 @@
                         </tr>
                     @endforeach
 
-                </tbody>
+                </tbody> --}}
             </table>
-          </div>
+        </div>
+        {{-- {{$rows->links()}} --}}
         </div>
       </div>
     </div>
@@ -105,36 +106,17 @@
 @section('page-script')
   {{-- Page js files --}}
   <script>
-
-$(document).ready( function () {
-        $('#table_id').DataTable();
-    } );
-    // var dt_filter_table = $('.dt-column-search');
-    // if (dt_filter_table.length) {
-    //     // Setup - add a text input to each footer cell
-    //     $('.dt-column-search thead tr').clone(true).appendTo('.dt-column-search thead');
-    //     $('.dt-column-search thead tr:eq(1) th').each(function (i) {
-    //         var title = $(this).text();
-    //         $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
-
-    //         $('input', this).on('keyup change', function () {
-    //             if (dt_filter.column(i).search() !== this.value) {
-    //                 dt_filter.column(i).search(this.value).draw();
-    //             }
-    //         });
-    //     });
-
-    //     let token   = $('meta[name="csrf-token"]').attr('content');
-
-    //     var data = $.ajax({
-    //                 url: "/admin/roles/get-index",
+      $(document).ready( function () {
+      var data;
+    //    $.ajax({
+    //                 url: "/admin/patients/json-index",
     //                 type:"GET",
-    //                 headers: {"X-CSRF-TOKEN": token},
+    //                 // headers: {"X-CSRF-TOKEN": token},
     //                 // data:{
     //                 // _token: _token
     //                 // },
     //                 success:function(response){
-    //                 console.log(response);
+    //                 // console.log(response);
     //                 if(response) {
     //                     // $('.success').text(response.success);
     //                     // $("#ajaxform")[0].reset();
@@ -143,29 +125,102 @@ $(document).ready( function () {
     //                 },
     //             });
 
-    //         var dt_filter = dt_filter_table.DataTable({
-    //         // ajax: assetPath + 'data/table-datatable.json',
-    //         ajax: data,
-    //         columns: [
-    //             { data: 'name' },
-    //             { data: 'guard_name' }
-    //             // { data: 'post' },
-    //             // { data: 'city' },
-    //             // { data: 'start_date' },
-    //             // { data: 'salary' }
-    //         ],
-    //         dom:
-    //             '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-    //             orderCellsTop: true,
-    //         language: {
-    //             paginate: {
-    //             // remove previous & next text from pagination
-    //             previous: '&nbsp;',
-    //             next: '&nbsp;'
-    //             }
-    //         }
-    //     });
-    // }
+                $('#table_id').DataTable({
+                    ajax: {
+                    url: '{{route("patients.json-index")}}',
+                    // headers: {
+                    //     // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    type: 'GET',
+                    data: {
+                        // parameters for custom backend script demo
+                        columnsDef: [
+                            'id', 'patient_number','name',
+                            'telephone', 'clinic'
+                        ],
+                    },
+                    },
+                    columns: [{
+                        data: 'patient_number'
+                    },
+                    {
+                        data: 'name'
+                    },
+
+                    {
+                        data: 'telephone'
+                    },
+                    {
+                        data: 'clinic'
+                    },
+                    {
+                        data: 'id',
+                        responsivePriority: -1
+                    },
+                ],
+                columnDefs: [{
+                        targets: -1,
+                        title: 'Actions',
+                        width:'80px',
+                        orderable: false,
+                        render: function (data, type, full, meta) {
+                            // var status = "exams_status/" + data;
+                            var edit = "admin/patients/" + data + "/edit";
+                            var destroy = "admin/patients" + data;
+                            // var show = "admin/" + data;
+                            return '\
+							<a href="' + edit + '" class="btn btn-sm btn-clean btn-icon" title="Edit details">\
+								<i class="la la-edit"></i>\
+                            </a>\
+							<a href="' + destroy + '" class="btn btn-sm btn-clean btn-icon delete" title="Delete">\
+								<i class="la la-trash"></i>\
+							</a>\
+						';
+                        }
+                    },
+               {
+                targets: 0,
+                title: '#',
+                width:'40px'
+                }
+        ]
+                });
+            } );
+
+    $(document).on('click', '.delete', function (e) {
+        e.preventDefault();
+        var row = $(this).parents('tr');
+
+        swal.fire({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this item again!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((willDelete) => {
+            if (willDelete.value) {
+                $.ajax({
+                    url: $(this).attr('href'),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'DELETE'
+                }).done(function (data) {
+                    console.log(data);
+                    swal.fire("deleted!", 'Success Delete', 'success');
+                    row.remove();
+                });
+            } else {
+                swal.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                );
+            }
+        });
+    });
 </script>
   {{-- <script src="{{ asset(mix('js/scripts/tables/table-datatables-advanced.js')) }}"></script> --}}
 @endsection

@@ -40,8 +40,7 @@
           <h2 class="brand-text text-primary ml-1">KIDS CLINIC</h2>
         </a>
 
-        <h4 class="card-title mb-1">Welcome to KIDS CLINIC👋</h4>
-        <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
+        <h4 class="card-title mb-1">Welcome to KIDS CLINIC</h4>
 
         <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.login') }}">
           @csrf
@@ -80,14 +79,14 @@
           <button type="submit" class="btn btn-primary btn-block" tabindex="4">Sign in</button>
         </form>
 
-        <p class="text-center mt-2">
+        {{-- <p class="text-center mt-2">
           <span>New on our platform?</span>
           @if (Route::has('register'))
           <a href="{{ route('admin.register') }}">
             <span>Create an account</span>
           </a>
           @endif
-        </p>
+        </p> --}}
 
 
       </div>

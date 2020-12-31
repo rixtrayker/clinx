@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Apis\Admin\RoleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::group(
+    [
+    'prefix' => 'admin',
+    // 'as'=>'admin.',
+
+    // 'middleware' => ['auth', 'acl'],
+],
+    function () {
+    Route::resource('roles', RoleController::class);
+}
+);
+

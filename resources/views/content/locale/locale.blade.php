@@ -14,8 +14,8 @@
         <div class="card-body">
           <div class="dropdown">
             <a class="btn btn-outline-primary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdown-flag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="flag-icon flag-icon-us mr-50"></i>
-              <span class="selected-language">English</span>
+              <i class="flag-icon flag-icon-{{app()->getLocale() == 'en'? 'us' : 'sa'}} mr-50"></i>
+              <span class="selected-language">{{app()->getLocale() == 'en'? 'English' : 'Arabic'}}</span>
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -23,18 +23,12 @@
                 <i class="flag-icon flag-icon-us mr-50"></i>
                 <span>English</span>
               </a>
-              <a class="dropdown-item" href="{{url('lang/fr')}}" data-language="fr">
-                <i class="flag-icon flag-icon-fr mr-50"></i>
-                <span>French</span>
+              <a class="dropdown-item" href="{{url('lang/ar')}}" data-language="fr">
+                <i class="flag-icon flag-icon-sa mr-50"></i>
+                <span>Arabic</span>
               </a>
-              <a class="dropdown-item" href="{{url('lang/de')}}" data-language="de">
-                <i class="flag-icon flag-icon-de mr-50"></i>
-                <span>German</span>
-              </a>
-              <a class="dropdown-item" href="{{url('lang/pt')}}" data-language="pt">
-                <i class="flag-icon flag-icon-pt mr-50"></i>
-                <span>Portuguese</span>
-              </a>
+
+
             </div>
           </div>
 

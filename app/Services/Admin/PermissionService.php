@@ -15,25 +15,26 @@ use Validator;
 use App;
 use Exception;
 
-class RoleService
+class PermissionService
 {
     public $model;
     public $module;
     public $rules;
 
-    public function __construct(Role $model)
+    public function __construct(Permission $model)
     {
-        $this->module = 'roles';
+        $this->module = 'permissions';
         $this->model = $model;
         $this->rules = [
             'name' => 'required',
-            // 'guard_name' => 'required|in:admin,web'
+            // 'name' => 'required|unique:permissions,name',
+            'guard_name' => 'required|in:admin,web'
         ];
     }
 
     public function index()
     {
-        $rows = Role::latest();
+        $rows = Permission::latest();
         $rows = $rows->get();
         return $rows;
     }
@@ -43,50 +44,45 @@ class RoleService
         request()->validate($this->rules);
         $data['guard_name'] = 'admin';
 
-        $row = Role::create($data);
+        $row = Permission::create($data);
 
         if ($row) {
             SaveActionLog();
         }
-
         return $row;
     }
 
     public function show($id)
     {
-        return Role::findOrFail($id);
+        return Permission::findOrFail($id);
     }
 
     public function edit($id)
     {
         // authorize('edit-'.$this->module);
-        $row = $this->show($id);
+        $row = $this->permissionService->show($id);
         return view('admin.' . $this->module . '.edit', ['row' => $row, 'module' => $this->module]);
     }
 
     public function update($data, $id)
     {
-        request()->validate($this->rules);
+        request()->validate($rules);
 
-        $row = $this->show($id);
-        $row->permissions()->sync($data['permission_id']);
-
-        try{
+        $row = $this->permissionService->show($id);
+        try {
             $row->update($data);
             return true;
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             return null;
         }
     }
     public function destroy($id)
     {
-        $row = $this->show($id);
-        try{
+        $row = $this->permissionService->show($id);
+        try {
             $row->delete($data);
             return true;
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             return null;
         }
     }

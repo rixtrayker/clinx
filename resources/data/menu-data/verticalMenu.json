@@ -1,37 +1,31 @@
 {
   "menu": [
     {
-      "name": "Dashboards",
-      "badge": "2",
+      "name": "Dashboard",
+      "badge": "",
       "badgeClass": "badge badge-light-warning badge-pill ml-auto mr-1",
       "icon": "home",
       "slug": "",
-      "submenu": [
-        {
-          "url": "dashboard/analytics",
-          "name": "Analytics",
-          "icon": "circle",
-          "slug": "dashboard-analytics"
-        },
-        {
-          "url": "/",
-          "name": "eCommerce",
-          "icon": "circle",
-          "slug": "dashboard-ecommerce"
-        }
-      ]
+      "url":"admin"
     },
-
-    {
-      "navheader": "Roles",
-      "slug": ""
-    },
-
     {
         "url": "admin/roles",
         "name": "Roles",
         "icon": "users",
         "slug": "roles"
-      }
+      },
+    {
+        "url": "admin/permissions",
+        "name": "Permissions",
+        "icon": "users",
+        "slug": "permissions"
+      },
+      {
+          "url": "admin/patients",
+          "name": "Children",
+          "icon": "users",
+          "slug": "children"
+        }
+
   ]
 }

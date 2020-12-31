@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'ID' => 'ID',
@@ -437,4 +437,7 @@ return [
     'Edit Rescue Driver' => '',
     'Rescue Driver View' => '',
     'Attachments' => '',
+    'Guard name' => 'Guard name',
+    'Home' => 'Home',
+
 ];

@@ -9,14 +9,17 @@
  * @param  string  $locale
  * @return string
  */
- function SaveActionLog($path)
+ function SaveActionLog()
  {
-     $user=\App\Libs\Adminauth::user();
+    //  dd(request()->segment(1));
+     $user=Auth::guard('admin')->user();
+
      $data = [];
      $data['admin_name']=$user['name'];
      $data['admin_id']=$user['id'];
-     $slug=explode('/', $path);
-     $data['action']=$slug[2].' '.$slug[1];
+    //  $slug=explode('/', $path);
+     $data['action']=request()->segment(2).' '.request()->segment(1);
+
      \App\Models\ActionLog::create($data);
  }
 
@@ -409,4 +412,14 @@ function viewValue($value, $type, $params=[])
         }
     }
     return $suffix;
+}
+
+function apiResponse($status, $msg, $data = null)
+{
+    $response = [
+        'status' => $status,
+        'msg' => $msg,
+        'data' => $data
+    ];
+    return response()->json($response);
 }

@@ -23,6 +23,7 @@
       <div class="{{ $configData['contentsidebarClass'] }}">
         <div class="content-body">
           {{-- Include Page Content --}}
+          @include('admin.partials.flash_messages')
           @yield('content')
         </div>
       </div>
