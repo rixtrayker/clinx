@@ -41,7 +41,8 @@ class PatientService
     public function json_index()
     {
         $rows = Patient::select('id', 'patient_number', 'name', 'telephone', 'clinic')->get();
-        return $rows->toArray();
+        return $rows->toJson();
+
     }
 
     public function store($data)

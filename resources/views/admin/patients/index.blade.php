@@ -106,40 +106,49 @@
 @section('page-script')
   {{-- Page js files --}}
   <script>
+
+
+                // {
+                //     url: '{{route("patients.json-index")}}',
+                //     // headers: {
+                //     //     // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                //     // },
+                //     type: 'GET',
+                //     data: {
+                //         // parameters for custom backend script demo
+                //         columnsDef: [
+                //             'id', 'patient_number','name',
+                //             'telephone', 'clinic'
+                //         ],
+                //     },
+                // }
+
+
       $(document).ready( function () {
       var data;
-    //    $.ajax({
-    //                 url: "/admin/patients/json-index",
-    //                 type:"GET",
-    //                 // headers: {"X-CSRF-TOKEN": token},
-    //                 // data:{
-    //                 // _token: _token
-    //                 // },
-    //                 success:function(response){
-    //                 // console.log(response);
-    //                 if(response) {
-    //                     // $('.success').text(response.success);
-    //                     // $("#ajaxform")[0].reset();
-    //                     data = response;
-    //                 }
-    //                 },
-    //             });
-
-                $('#table_id').DataTable({
-                    ajax: {
-                    url: '{{route("patients.json-index")}}',
-                    // headers: {
-                    //     // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       $.ajax({
+                    url: "/admin/patients/json-index",
+                    type:"GET",
+                    // headers: {"X-CSRF-TOKEN": token},
+                    // data:{
+                    // _token: _token
                     // },
-                    type: 'GET',
-                    data: {
-                        // parameters for custom backend script demo
-                        columnsDef: [
-                            'id', 'patient_number','name',
-                            'telephone', 'clinic'
-                        ],
+                    success:function(response){
+                    // console.log(response);
+                    if(response) {
+                        // $('.success').text(response.success);
+                        // $("#ajaxform")[0].reset();
+                        data =  JSON.parse(response);
+                    }
                     },
-                    },
+                }).done(function(){
+                    dataTable(data);
+                    // alert(data);
+                });
+
+                function dataTable(data2){
+                $('#table_id').DataTable({
+                    ajax: data2,
                     columns: [{
                         data: 'patient_number'
                     },
@@ -160,7 +169,7 @@
                 ],
                 columnDefs: [{
                         targets: -1,
-                        title: 'Actions',
+                        // title: 'Action',
                         width:'80px',
                         orderable: false,
                         render: function (data, type, full, meta) {
@@ -185,7 +194,7 @@
                 }
         ]
                 });
-            } );
+      }} );
 
     $(document).on('click', '.delete', function (e) {
         e.preventDefault();
