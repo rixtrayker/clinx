@@ -3,18 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\Role;
-use App\Services\Admin\RoleService;
+use App\Models\Permission;
+use App\Services\Admin\PermissionService;
 use App\Http\Controllers\Administrator;
 use App;
-use App\Models\Permission;
+use App\Models\Reservation;
+use App\Models\Config as ModelsConfig;
 
-class RoleController extends Administrator
+class ReservationController extends Administrator
 {
     public $model;
     public $module;
     public $rules;
-    protected $roleService;
+    protected $permissionService;
 
     // protected $protect_methods = [
     //     'create' => ['store'],    // protects store() method on create.user (create.alias)
@@ -23,35 +24,26 @@ class RoleController extends Administrator
     //     'delete' => ['destroy']
     // ];
 
-    public function __construct(Role $model)
+    public function __construct(Permission $model)
     {
         // parent::__construct();
-        $this->module = 'roles';
+        $this->module = 'permissions';
         $this->model = $model;
-        $this->roleService = new RoleService($model);
-    }
-
-    public function index_data()
-    {
-        // authorize('view-' . $this->module);
-        $rows = $this->roleService->index();
-        dd(1);
-        return \apiResponse(200,'',$rows);
+        $this->permissionService = new PermissionService($model);
     }
 
     public function index()
     {
         // authorize('view-' . $this->module);
-        $rows = $this->roleService->index();
+        $rows = $this->permissionService->index();
         $breadcrumbs = [
-            ['link' => "/admin", 'name' => __('admin.Home')], [ 'name' => __('admin.Roles')],
+            ['link' => "/admin", 'name' => __('admin.Home')], [ 'name' => __('admin.Permissions')],
           ];
-          return view('admin.' . $this->module . '.index', [
+        return view('admin.' . $this->module . '.index', [
             'breadcrumbs' => $breadcrumbs,
             'rows' => $rows,
              'module' => $this->module
           ]);
-
     }
 
     /**
@@ -63,9 +55,7 @@ class RoleController extends Administrator
     {
         // authorize('create-'.$this->module);
         $row = $this->model;
-        $permissions = Permission::all();
-        return view('admin.' . $this->module . '.create', ['row' => $row, 'module' => $this->module,'permissions' => $permissions ]);
-
+        return view('admin.' . $this->module . '.create', ['row' => $row, 'module' => $this->module]);
     }
 
     /**
@@ -77,7 +67,7 @@ class RoleController extends Administrator
     public function store(Request $request)
     {
         // authorize('create-'.$this->module);
-        $row = $this->roleService->store($request->except([]));
+        $row = $this->permissionService->store($request->except([]));
 
         if ($row) {
             flash()->success(trans('admin.Add successfull'));
@@ -85,7 +75,6 @@ class RoleController extends Administrator
         }
 
         flash()->error(trans('admin.failed to save'));
-
     }
 
     /**
@@ -96,7 +85,6 @@ class RoleController extends Administrator
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -108,9 +96,8 @@ class RoleController extends Administrator
     public function edit($id)
     {
         // authorize('edit-'.$this->module);
-        $row = $this->roleService->show($id);
-        $permissions = Permission::all();
-        return view('admin.' . $this->module . '.edit', ['row' => $row, 'module' => $this->module,'permissions' => $permissions ]);
+        $row = $this->permissionService->show($id);
+        return view('admin.' . $this->module . '.edit', ['row' => $row, 'module' => $this->module]);
     }
 
     /**
@@ -123,8 +110,8 @@ class RoleController extends Administrator
     public function update(Request $request, $id)
     {
         // authorize('edit-'.$this->module);
-        $row = $this->roleService->update($request->except([]),$id);
-        if ($row){
+        $row = $this->permissionService->update($request->except([]), $id);
+        if ($status) {
             flash()->success(trans('admin.Edit successfull'));
             return redirect('/admin/' . $this->module . '');
         }
@@ -140,31 +127,45 @@ class RoleController extends Administrator
     public function destroy($id)
     {
         // authorize('delete-'.$this->module);
-        $this->roleService->destroy($id);
+        $this->permissionService->destroy($id);
         flash()->success(trans('admin.Delete successfull'));
         return back();
     }
 
-    public function getPermissions($id) {
-        // authorize('create-'.$this->module);
-        $row = $this->model->findOrFail($id);
-        $permissions = \App\Models\Permission::all();
-        return view('admin.' . $this->module . '.permissions', ['permissions'=>$permissions,'row' => $row, 'module' => $this->module]);
-    }
+    public function reserve(Request $request)
+    {
+        $request['status']=2;
+        $res_type = $request->reservation_type;
+        $f_name = $res_type == 1 ? 'c_price' : ($res_type == 2 ? 'f_price' : 'v_price');
+        $price = ModelsConfig::where("field_name", $f_name)->first()->value;
+        $request['price'] = $price;
 
-    public function postPermissions($id, Request $request) {
-        $row = $this->model->findOrFail($id);
-        // authorize('create-'.$this->module);
-        try {
-          $row->permissions()->sync((array) $request->input('role_list'));
-          SaveActionLog('admin/add_permission/create');
-
-          flash()->success(trans('admin.Permission set successfull'));
-          return redirect(app()->getLocale().'/admin/' . $this->module . '');
-
-        } catch (\Exception $e) {
-          flash()->error(trans('admin.failed to save'));
+        // $this->validate($request, $rules);
+        if ($row = Reservation::create($request->except([]))) {
+            $row->total = $row->price;
+            $row->status = 2;
+            if ($row->discount) {
+                $row->total = $row->total - $row->discount;
+            }
+            if ($row->extra) {
+                $row->total = $row->total + $row->extra;
+            }
+            $row->created_at = date('Y-m-d');
+            $last=Reservation::whereNull('extra')->whereDate('created_at', '=', date('Y-m-d'))->count();
+            // if ($last > 0) {
+            //     $last =$last+1;
+            // } else {
+            //     $last =1;
+            // }
+            $row->save();
         }
+        // $row = Reservation::create($request->all());
+        if ($row) {
+            // flash()->success(trans('admin.Reservation Done'));
+            return  response(['msg'=>__('admin.Reservation Done')], 200);
+        } else {
+            // flash()->error(trans('admin.Reservation Failed'));
+        }
+        return response(['msg'=>__('admin.Reservation Failed')], 400);
     }
-
 }

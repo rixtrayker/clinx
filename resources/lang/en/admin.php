@@ -439,5 +439,12 @@ return [
     'Attachments' => '',
     'Guard name' => 'Guard name',
     'Home' => 'Home',
+    'Add new reservation' => 'Add new reservation',
+    'Reserve' => 'Reserve',
+    'Reservation Done' => 'Reservation Done',
+    'Reservation Failed' => 'Reservation Failed',
+    'Deleted successfully' => 'Deleted successfully',
+    'Delete Failed' => 'Reservation Failed',
+
 
 ];

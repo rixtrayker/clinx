@@ -46,7 +46,7 @@
         "classmap": [
             "database",
 			"app/Libs",
-            "app/Helpers",
+            "app/Helpers"
         ],
         "psr-4": {
             "App\\": "app/",

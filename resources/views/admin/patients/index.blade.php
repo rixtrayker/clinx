@@ -37,8 +37,9 @@
               </thead>
 
             </table> --}}
-
-            <table id="table_id" class="table dt-column-search table-bordered data_table">
+            <div class="container">
+            @include('admin.patients.res-modal')
+            <table id="table_id" onchange="func()" class="table dt-column-search table-bordered data_table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -84,6 +85,8 @@
 
                 </tbody> --}}
             </table>
+            </div>
+
         </div>
         {{-- {{$rows->links()}} --}}
         </div>
@@ -101,11 +104,24 @@
   <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
+
 @endsection
 
 @section('page-script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+{{-- <script>
+    var n = document.createElement('script');
+    n.setAttribute('language', 'JavaScript');
+    n.setAttribute('src', 'https://debug.datatables.net/debug.js');
+    document.body.appendChild(n);
+</script> --}}
+
   {{-- Page js files --}}
   <script>
+      function func(){
+          feather.replace()
+      }
 
 
                 // {
@@ -125,7 +141,8 @@
 
 
       $(document).ready( function () {
-      var data;
+    var reserve = "{{__('admin.Reserve')}}";
+      var data = null;
        $.ajax({
                     url: "/admin/patients/json-index",
                     type:"GET",
@@ -143,12 +160,17 @@
                     },
                 }).done(function(){
                     dataTable(data);
+                    feather.replace();
+                    $('#table_id ').bind('DOMNodeInserted', function(){
+                        feather.replace();
+                    });
+
                     // alert(data);
                 });
 
                 function dataTable(data2){
                 $('#table_id').DataTable({
-                    ajax: data2,
+                    data: data2,
                     columns: [{
                         data: 'patient_number'
                     },
@@ -170,21 +192,29 @@
                 columnDefs: [{
                         targets: -1,
                         // title: 'Action',
-                        width:'80px',
+                        width:'180px',
                         orderable: false,
                         render: function (data, type, full, meta) {
                             // var status = "exams_status/" + data;
-                            var edit = "admin/patients/" + data + "/edit";
-                            var destroy = "admin/patients" + data;
+                            var edit = "patients/" + data + "/edit";
+                            var destroy = "/admin/patients/" + data;
                             // var show = "admin/" + data;
                             return '\
-							<a href="' + edit + '" class="btn btn-sm btn-clean btn-icon" title="Edit details">\
-								<i class="la la-edit"></i>\
+							<a href="' + edit + '" class="btn btn-sm btn-primary" title="Edit details">\
+								<i data-feather="edit"></i>\
                             </a>\
-							<a href="' + destroy + '" class="btn btn-sm btn-clean btn-icon delete" title="Delete">\
-								<i class="la la-trash"></i>\
-							</a>\
-						';
+							<a href="' + destroy + '" class="btn btn-sm btn-danger delete mx-1" title="Delete">\
+								<i data-feather="trash"></i>\
+                            </a>'+
+                            '<a\
+    onclick="modalSendId('+data+')"'+
+      'role="button"\
+      class="inline btn btn-sm btn-outline-success "\
+      data-toggle="modal"\
+      data-target="#add-res">\
+      '+reserve+'\
+    </a>'
+						;
                         }
                     },
                {
@@ -196,10 +226,23 @@
                 });
       }} );
 
+
+    function modalSendId(x){
+        $('#patient_id').val(x);
+    }
+
     $(document).on('click', '.delete', function (e) {
         e.preventDefault();
-        var row = $(this).parents('tr');
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        var row = $(this).parents('tr');
+        var url = $(this).attr('href');
+        let scssmsg= "{{__('admin.Deleted successfully')}}";
+        let errmsg= "{{__('admin.Deleted Failed')}}";
         swal.fire({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this item again!",
@@ -211,25 +254,72 @@
         }).then((willDelete) => {
             if (willDelete.value) {
                 $.ajax({
-                    url: $(this).attr('href'),
+                    url: url,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    type: 'DELETE'
-                }).done(function (data) {
-                    console.log(data);
-                    swal.fire("deleted!", 'Success Delete', 'success');
-                    row.remove();
-                });
-            } else {
+                    type: 'DELETE',
+                    success:function (data) {
+                        console.log(data);
+                        swal.fire(scssmsg,'', 'success');
+                        row.remove();
+                    },
+                    error:function(data){
+                        console.log(data['msg']);
+                        swal.fire(
+                        errmsg,
+                        '',
+                        'error'
+                    );
+                }})
+            }
+        });
+    });
+
+
+    $('#reserveBTN').on('click',function(event){
+        event.preventDefault();
+        let clinic_id = $("#clinic_id").val();
+        let reservation_type = $("#reservation_type").val();
+        let patient_id = $("#patient_id").val();
+        let discount = $("#discount").val();
+        let extra = $("#extra").val();
+        let _token   = $('meta[name="csrf-token"]').attr('content');
+        let scssmsg= "{{__('admin.Reservation Done')}}";
+        let errmsg= "{{__('admin.Reservation Failed')}}";
+        $.ajax({
+            url: '/admin/patients/reserve',
+            type:"POST",
+            data:{
+            clinic_id:clinic_id,
+            reservation_type:reservation_type,
+            patient_id:patient_id,
+            discount:discount,
+            extra:extra,
+            _token: _token
+            },
+            success:function(response){
+                console.log(response);
+
+                swal.fire(scssmsg,'', 'success');
+            },
+            error:function(response){
+                // console.log(response['msg']);
+                // var data1 = JSON.parse(response);
+                // console.log(data1['msg']);
                 swal.fire(
-                    'Cancelled',
-                    'Your imaginary file is safe :)',
+                    errmsg,
+                    '',
                     'error'
                 );
             }
         });
     });
+
+
+
 </script>
+<script src="{{ asset(mix('js/scripts/components/components-modals.js')) }}"></script>
+
   {{-- <script src="{{ asset(mix('js/scripts/tables/table-datatables-advanced.js')) }}"></script> --}}
 @endsection

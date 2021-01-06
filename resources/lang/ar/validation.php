@@ -1,6 +1,11 @@
 <?php
 return [
     'accepted' => 'The field must be accepted.',
+    'required'  => 'الحقل :attribute مطلوب',
+    'name required'  => 'الاسم مطلوب',
+    'patient number required'  => 'رقم الحالة مطلوب',
+    'attached'  => 'الحقل :attribute تم ربطه مسبقاً',
+
     'active_url' => 'The is not a valid URL.',
     'after' => 'The field must be a date after :date.',
     'alpha' => 'The may only contain letters.',
@@ -48,7 +53,6 @@ return [
     'numeric' => 'The :attribute must be a number.',
     'present' => 'The :attribute must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute is required.',
     'required_if' => 'The :attribute is required when :other is :value.',
     'required_unless' => 'The :attribute is required unless :other is in :values.',
     'required_with' => 'The :attribute is required when :values is present.',

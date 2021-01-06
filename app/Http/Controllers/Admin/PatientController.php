@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Clinic;
+use App\Models\Government;
+
 use App\Models\Patient;
+use App\Models\Vaccination;
+
 use App\Services\Admin\PatientService;
 use Illuminate\Http\Request;
 
@@ -43,7 +49,22 @@ class PatientController extends Controller
     public function create()
     {
         $row = $this->model;
-        return view('admin.' . $this->module . '.create', ['row' => $row, 'module' => $this->module]);
+        $latestchild =  Patient::orderBy('patient_number', "desc")->first();
+        if ($latestchild == null) {
+            $latestchild = new Patient();
+            $latestchild->patient_number =0;
+        }
+        $patient_number = $latestchild->patient_number + 1;
+        $clinics =Clinic::published()->get()->pluck("title", "id")->toArray();
+        $govs =Government::published()->get()->pluck("title", "id")->toArray();
+        $vaccinations =Vaccination::published()->get()->pluck("title", "id")->toArray();
+        $cities =City::published()->get()->pluck("title", "id")->toArray();
+
+
+
+        return view('admin.' . $this->module . '.create', ["clinics"=>$clinics,"govs"=>$govs,"cities"=>$cities,
+        "vaccinations"=>$vaccinations,"patient_number"=>$patient_number,'row' => $row, 'module' => $this->module]);
+
     }
 
 
@@ -69,7 +90,14 @@ class PatientController extends Controller
     public function edit($id)
     {
         $row = $this->patientService->show($id);
-        return view('admin.' . $this->module . '.edit', ['row' => $row, 'module' => $this->module]);
+        $patientNo = $row->patient_number;
+        $clinics =Clinic::published()->get()->pluck("title", "id")->toArray();
+        $govs =Government::published()->get()->pluck("title", "id")->toArray();
+        $vaccinations =Vaccination::published()->get()->pluck("title", "id")->toArray();
+        $cities =City::published()->get()->pluck("title", "id")->toArray();
+        return view('admin.' . $this->module . '.edit', ["clinics"=>$clinics,"govs"=>$govs,"cities"=>$cities,
+        "vaccinations"=>$vaccinations,"patientNo"=>$patientNo,'row' => $row, 'module' => $this->module]);
+
     }
 
 
@@ -85,8 +113,15 @@ class PatientController extends Controller
 
     public function destroy($id)
     {
-        $this->patientService->destroy($id);
-        flash()->success(trans('admin.Delete successfull'));
-        return back();
+        $row =  $this->patientService->destroy($id);
+        // if ($row) {
+        //     return \response(['msg'=>__('admin.Deleted successfully')], 200);
+        // } else {
+            return \response(['msg'=>__('admin.Delete Failed')], 400);
+        // }
+        // flash()->success(trans('admin.Delete successfull'));
+        // return ()
+        // return back();
+
     }
 }
