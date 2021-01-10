@@ -8,8 +8,12 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ReservationController;
+
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminHomeController;
+use App\Models\Reservation;
+
 use App\Models\Role;
 
 /*
@@ -58,6 +62,8 @@ Route::group([
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('patients', PatientController::class);
+    Route::get('delete-reservation/{id}', [ReservationController::class,'deleteReservation']);
+
 
     // Route::get('update-password', [AdminController::class, 'getUpdatePassword']);
     // Route::post('update-password', [AdminController::class, 'postUpdatePassword']);

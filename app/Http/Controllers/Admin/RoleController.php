@@ -46,7 +46,13 @@ class RoleController extends Administrator
         $breadcrumbs = [
             ['link' => "/admin", 'name' => __('admin.Home')], [ 'name' => __('admin.Roles')],
           ];
+          $pageConfigs = [
+            'direction' => 'rtl',
+        ];
+
           return view('admin.' . $this->module . '.index', [
+            // 'pageConfigs' => $pageConfigs,
+
             'breadcrumbs' => $breadcrumbs,
             'rows' => $rows,
              'module' => $this->module

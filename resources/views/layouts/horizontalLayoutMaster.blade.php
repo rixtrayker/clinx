@@ -47,6 +47,7 @@
       <div class="content-body">
 
         {{-- Include Page Content --}}
+        @include('admin.partials.flash_messages')
         @yield('content')
 
       </div>
@@ -57,9 +58,9 @@
   <!-- End: Content-->
 
   @if($configData['blankPage'] == false && isset($configData['blankPage']))
-  @include('content/pages/customizer')
+  {{-- @include('content/pages/customizer') --}}
 
-  @include('content/pages/buy-now')
+  {{-- @include('content/pages/buy-now') --}}
   @endif
 
   <div class="sidenav-overlay"></div>

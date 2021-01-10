@@ -55,7 +55,7 @@
         <div class="row">
             @php $input='father_job'; @endphp
             <div class="form-group col-md-6">
-            {!! Form::rawLabel($input,trans('admin.Father Job'),['class' => 'col-form-label col-form-label-lg']) !!}
+            {!! Form::rawLabel($input,trans('admin.Father job'),['class' => 'col-form-label col-form-label-lg']) !!}
                 <div>
                     {!! Form::text($input,null,['class'=>'form-control']) !!}
                     @foreach($errors->get($input) as $message)
@@ -66,7 +66,7 @@
 
             @php $input='mother_job'; @endphp
             <div class="form-group col-md-6">
-                {!! Form::rawLabel($input, trans('admin.Mother Job'),['class' => 'col-form-label col-form-label-lg']) !!}
+                {!! Form::rawLabel($input, trans('admin.Mother job'),['class' => 'col-form-label col-form-label-lg']) !!}
                 <div>
                     {!! Form::text($input,null,['class'=>'form-control']) !!}
                     @foreach($errors->get($input) as $message)
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             @php $input='telephone'; @endphp
             <div class="form-group col-md-6">
@@ -128,7 +128,7 @@
              </div>
         </div>
 
-       
+
 
     </div>
 </div>
@@ -148,11 +148,11 @@
                {!! Form::rawLabel($input,trans('admin.father_mother_kindred'),['class' => 'col-form-label col-form-label-lg mb-1','style'=>'display:block']) !!}
                <div class="form-check form-check-inline">
                     <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}1" checked value="1">
+                    <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}1" value="1">
                     <label class="custom-control-label" for="{{$input}}1">{{trans('admin.Yes')}}</label>
                     </div>
                     <div class="custom-control custom-radio mx-1">
-                    <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}2" value="0">
+                    <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}2" checked value="0">
                     <label class="custom-control-label" for="{{$input}}2">{{trans('admin.No')}}</label>
                     </div>
                 </div>
@@ -163,11 +163,11 @@
                {!! Form::rawLabel($input,trans('admin.family_genetic_diseases_check'),['class' => 'col-form-label col-form-label-lg mb-1','style'=>'display:block']) !!}
                <div class="form-check form-check-inline">
                    <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}1" checked value="1">
+                        <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}1" value="1">
                         <label class="custom-control-label" for="{{$input}}1">{{trans('admin.Yes')}}</label>
                     </div>
                     <div class="custom-control custom-radio mx-1">
-                        <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}2" value="0">
+                        <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}2" checked value="0">
                         <label class="custom-control-label" for="{{$input}}2">{{trans('admin.No')}}</label>
                     </div>
                </div>
@@ -181,7 +181,7 @@
                {!! Form::rawLabel($input,trans('admin.father_family_chronic_diseases').' ?',['class' => 'col-form-label col-form-label-lg mb-1','style'=>'display:block']) !!}
                <div class="form-check form-check-inline ">
                     <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="{{$input}}" id="{{$input}}1" checked value="1">
+                    <input type="checkbox" class="custom-control-input" name="{{$input}}" id="{{$input}}1" value="1">
                     <label class="custom-control-label" for="{{$input}}1">{{trans('admin.Father')}}</label>
                     </div>
                     <div class="custom-control custom-checkbox mx-1">
@@ -220,18 +220,18 @@
                     <label class="custom-control-label" for="{{$input}}6">أنيميا الفول</label>
                 </div>
             </div>
-        
+
         </div>
         <!-- end row-->
-        
-        <!-- row --> 
+
+        <!-- row -->
         <div class="row">
             @php $input='father_family_chronic_diseases'; @endphp
            <div class="form-group col-md-4">
                {!! Form::rawLabel($input,trans('admin.father_family_chronic_diseases').' ?',['class' => 'col-form-label col-form-label-lg mb-1','style'=>'display:block']) !!}
                <div class="form-check form-check-inline ">
                     <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="{{$input}}" id="{{$input}}1" checked value="1">
+                    <input type="checkbox" class="custom-control-input" name="{{$input}}" id="{{$input}}1" value="1">
                     <label class="custom-control-label" for="{{$input}}1">{{trans('admin.Father')}}</label>
                     </div>
                     <div class="custom-control custom-checkbox mx-1">
@@ -271,9 +271,9 @@
                     <label class="custom-control-label" for="{{$input}}6">أنيميا الفول</label>
                 </div>
             </div>
-           
+
         </div>
-        
+
         <!-- end row-->
 
         <!-- row -->
@@ -283,11 +283,11 @@
                     {!! Form::rawLabel($input,trans('admin.family_genetic_diseases').' ?',['class' => 'col-form-label col-form-label-lg mb-1','style'=>'display:block']) !!}
                 <div class="form-check form-check-inline ">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}1" checked value="1">
+                            <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}1"  value="1">
                             <label class="custom-control-label" for="{{$input}}1">{{trans('admin.Yes')}}</label>
                         </div>
                         <div class="custom-control custom-radio mx-1">
-                            <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}2" value="0">
+                            <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}2" checked value="0">
                             <label class="custom-control-label" for="{{$input}}2">{{trans('admin.No')}}</label>
                         </div>
                     </div>
@@ -309,18 +309,18 @@
             </div>
         <!--end row>
 
-        <!-- row --> 
+        <!-- row -->
           <div class="row">
             @php $input='brothers_genetic_diseases_check'; @endphp
            <div class="form-group col-md-4">
                {!! Form::rawLabel($input,trans('admin.brothers_genetic_diseases').' ?',['class' => 'col-form-label col-form-label-lg mb-1','style'=>'display:block']) !!}
                 <div class="form-check form-check-inline">
                     <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}1" checked value="1">
+                    <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}1" value="1">
                     <label class="custom-control-label" for="{{$input}}1">{{trans('admin.Yes')}}</label>
                     </div>
                     <div class="custom-control custom-radio mx-1">
-                    <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}2" value="0">
+                    <input type="radio" class="custom-control-input" name="{{$input}}" id="{{$input}}2" checked value="0">
                     <label class="custom-control-label" for="{{$input}}2">{{trans('admin.No')}}</label>
                     </div>
                  </div>
@@ -340,29 +340,29 @@
           </div>
         <!-- end row-->
 
-        <!-- row --> 
+        <!-- row -->
 
         <!-- end row-->
 
-        <!-- row --> 
+        <!-- row -->
 
         <!-- end row-->
 
-        <!-- row --> 
+        <!-- row -->
 
         <!-- end row-->
 
-        <!-- row --> 
+        <!-- row -->
 
         <!-- end row-->
 
-        <!-- row --> 
+        <!-- row -->
 
         <!-- end row-->
 
 
 
-        
+
     </div>
 </div>
 

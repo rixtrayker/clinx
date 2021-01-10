@@ -109,63 +109,6 @@
 $(document).ready( function () {
         $('#table_id').DataTable();
     } );
-    // var dt_filter_table = $('.dt-column-search');
-    // if (dt_filter_table.length) {
-    //     // Setup - add a text input to each footer cell
-    //     $('.dt-column-search thead tr').clone(true).appendTo('.dt-column-search thead');
-    //     $('.dt-column-search thead tr:eq(1) th').each(function (i) {
-    //         var title = $(this).text();
-    //         $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
 
-    //         $('input', this).on('keyup change', function () {
-    //             if (dt_filter.column(i).search() !== this.value) {
-    //                 dt_filter.column(i).search(this.value).draw();
-    //             }
-    //         });
-    //     });
-
-    //     let token   = $('meta[name="csrf-token"]').attr('content');
-
-    //     var data = $.ajax({
-    //                 url: "/admin/roles/get-index",
-    //                 type:"GET",
-    //                 headers: {"X-CSRF-TOKEN": token},
-    //                 // data:{
-    //                 // _token: _token
-    //                 // },
-    //                 success:function(response){
-    //                 console.log(response);
-    //                 if(response) {
-    //                     // $('.success').text(response.success);
-    //                     // $("#ajaxform")[0].reset();
-    //                     data = response;
-    //                 }
-    //                 },
-    //             });
-
-    //         var dt_filter = dt_filter_table.DataTable({
-    //         // ajax: assetPath + 'data/table-datatable.json',
-    //         ajax: data,
-    //         columns: [
-    //             { data: 'name' },
-    //             { data: 'guard_name' }
-    //             // { data: 'post' },
-    //             // { data: 'city' },
-    //             // { data: 'start_date' },
-    //             // { data: 'salary' }
-    //         ],
-    //         dom:
-    //             '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-    //             orderCellsTop: true,
-    //         language: {
-    //             paginate: {
-    //             // remove previous & next text from pagination
-    //             previous: '&nbsp;',
-    //             next: '&nbsp;'
-    //             }
-    //         }
-    //     });
-    // }
 </script>
-  {{-- <script src="{{ asset(mix('js/scripts/tables/table-datatables-advanced.js')) }}"></script> --}}
 @endsection

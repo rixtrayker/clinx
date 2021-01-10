@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
+use App\Models\Reservation;
+
 
 class HomeController extends Controller
 {
@@ -24,11 +27,11 @@ class HomeController extends Controller
     public function index() {
         $pageConfigs = ['pageHeader' => false, 'blankPage' => true];
         $date = $this->ArabicDate();
-        $last_patient = \App\Models\PatientReservation::whereIn("status",[2])->whereDate('created_date', '=', date('Y-m-d'))->orderBy("created_at","desc")->first();
+        $last_patient = \App\Models\Reservation::whereIn("status",[2])->whereDate('created_date', '=', date('Y-m-d'))->orderBy("created_date","desc")->first();
         $number = \App\Models\Config::where("field_name","current_patient")->first();
         $flag = \App\Models\Config::where("field_name","nextType")->first();
         $next = \App\Models\Config::where("field_name","next_patient")->first();
-        
+
         if (app()->getLocale() == 'en') {
             $date = date('Y-M-d');
         }
@@ -62,4 +65,40 @@ class HomeController extends Controller
         return $arabic_date;
     }
 
+    public function getCurrent()
+    {
+        $res = Reservation::whereDate('created_date',date('Y-m-d'))->where('status',0)->first();
+        $patient_id = $res ? $res->patient_id : null;
+        $row = Patient::find($patient_id);
+        return view('admin.patients.current',['row'=>$row]);
+    }
+
+    public function nextPatient()
+    {
+        $rowsE = Reservation::whereNotNull("extra")->whereIn("status",[2])->
+            whereDate('created_date', date('Y-m-d'))->orderBy("created_date","asc")->get();
+        $rowsN = Reservation::whereNull("extra")->whereIn("status",[2])->
+            whereDate('created_date', date('Y-m-d'))->orderBy("created_date","asc")->get();
+
+        $row = Reservation::whereDate('created_date',date('Y-m-d'))->where('status',0)->first();
+        $row->status = 1;
+        $row->save();
+
+        if (sizeof($rowsE) > 0) {
+            $rowsE[0]->status = 0;
+        }
+        elseif(sizeof($rowsN) > 0){
+            $rowsN[0]->status = 0;
+             // ->patient->patient_number}} - $rowsN[0]->patient->name}}
+        }
+    }
+        // $reports = $this->getReport();
+    public function getReports()
+    {
+
+    }
+    public function getQueue()
+    {
+        return view('admin.queue');
+    }
 }

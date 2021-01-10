@@ -444,7 +444,20 @@ return [
     'Reservation Done' => 'Reservation Done',
     'Reservation Failed' => 'Reservation Failed',
     'Deleted successfully' => 'Deleted successfully',
-    'Delete Failed' => 'Reservation Failed',
-
+    'Delete Failed' => 'Deletion Failed',
+    'Diagnose' => 'Diagnose',
+    'Vaccinations' => 'Vaccinations',
+    'File number' => 'File number',
+    'File number' => 'File number',
+    'Child name' => 'Child name',
+    'Father job' => 'Father job',
+    'Mother job' => 'Mother job',
+    'Telephone' => 'Telephone',
+    'Whatsapp' => 'Whatsapp',
+    'Birthdate' => 'Birthdate',
+    'How you know us ?' => 'How you know us ?',
+    'Age' => 'Age',
+    'Gender' => 'Gender',
+    'Street' => 'Street',
 
 ];

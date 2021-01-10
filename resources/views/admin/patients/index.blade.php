@@ -38,6 +38,8 @@
 
             </table> --}}
             <div class="container">
+            @include('admin.partials.flash_messages')
+
             @include('admin.patients.res-modal')
             <table id="table_id" onchange="func()" class="table dt-column-search table-bordered data_table">
                 <thead>

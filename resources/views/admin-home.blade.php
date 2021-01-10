@@ -14,11 +14,11 @@
                   <h3>المريض الحالى:
                     @php
                         $rows = App\Models\Reservation::whereIn("status",[2])->
-                        whereBetween('created_at',[date('Y-m-d').' 00:00:00', date('Y-m-d H:i:s')])->orderBy("created_at","asc")->get();
+                        whereDate('created_date',date('Y-m-d'))->orderBy("created_date","asc")->get();
                     @endphp
                     @php
                         $rowCurrent = App\Models\Reservation::whereIn("status",[0])->
-                        whereBetween('created_at',[date('Y-m-d').' 00:00:00', date('Y-m-d H:i:s')])->orderBy("created_at","asc")->first();
+                        whereDate('created_date',date('Y-m-d'))->orderBy("created_date","asc")->first();
                         // dd(date('Y-m-d H:i:s'));
                         // dd($rowCurrent);
                     @endphp
@@ -34,9 +34,9 @@
         </div>
         @php
         $rowsE = App\Models\Reservation::whereNotNull("extra")->whereIn("status",[2])->
-                whereBetween('created_at', [date('Y-m-d')." 00:00:00",date('Y-m-d H:i:s')])->orderBy("created_at","asc")->get();
+                whereDate('created_date', date('Y-m-d'))->orderBy("created_date","asc")->get();
         $rowsN = App\Models\Reservation::whereNull("extra")->whereIn("status",[2])->
-                whereBetween('created_at', [date('Y-m-d')." 00:00:00",date('Y-m-d H:i:s')])->orderBy("created_at","asc")->get();
+        whereDate('created_date', date('Y-m-d'))->orderBy("created_date","asc")->get();
         @endphp
         <div>
             <div>
@@ -49,7 +49,7 @@
                     {{$rowsN[0]->patient->patient_number}} - {{$rowsN[0]->patient->name}}
                     @else
                     0
-                    {{dd($rowsN)}}
+
                     @endif
                   </h3>
                 </div>

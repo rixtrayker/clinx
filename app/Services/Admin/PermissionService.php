@@ -34,7 +34,8 @@ class PermissionService
 
     public function index()
     {
-        $rows = Permission::latest();
+        $rows = $this->model->latest();
+
         $rows = $rows->get();
         return $rows;
     }
@@ -44,7 +45,8 @@ class PermissionService
         request()->validate($this->rules);
         $data['guard_name'] = 'admin';
 
-        $row = Permission::create($data);
+        $row = $this->model->create($data);
+
 
         if ($row) {
             SaveActionLog();
@@ -54,7 +56,8 @@ class PermissionService
 
     public function show($id)
     {
-        return Permission::findOrFail($id);
+        return $this->model->findOrFail($id);
+
     }
 
     public function edit($id)

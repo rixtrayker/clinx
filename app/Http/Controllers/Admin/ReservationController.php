@@ -131,7 +131,12 @@ class ReservationController extends Administrator
         flash()->success(trans('admin.Delete successfull'));
         return back();
     }
-
+    public function deleteReservation($id)
+    {
+        $row = Reservation::findOrFail($id);
+        $row->delete();
+        return redirect()->back();
+    }
     public function reserve(Request $request)
     {
         $request['status']=2;

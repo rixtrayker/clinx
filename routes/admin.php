@@ -40,5 +40,8 @@ Route::group(
 ],
     function () {
         Route::post('patients/reserve', 'ReservationController@reserve')->name('patient.res.post');
+        Route::get('current', 'HomeController@getCurrent')->name('admin.current');
+        Route::get('queue', 'HomeController@getQueue')->name('admin.current');
+
     }
 );

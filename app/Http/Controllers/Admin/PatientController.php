@@ -104,21 +104,23 @@ class PatientController extends Controller
     public function update(Request $request, $id)
     {
         $row = $this->patientService->update($request->except([]), $id);
-        if ($status) {
+        if ($row) {
             flash()->success(trans('admin.Edit successfull'));
             return redirect('/admin/' . $this->module . '');
         }
         flash()->error(trans('admin.failed to save'));
+        return \redirect()->route('patients.index');
+
     }
 
     public function destroy($id)
     {
         $row =  $this->patientService->destroy($id);
-        // if ($row) {
-        //     return \response(['msg'=>__('admin.Deleted successfully')], 200);
-        // } else {
+        if ($row) {
+            return \response(['msg'=>__('admin.Deleted successfully')], 200);
+        } else {
             return \response(['msg'=>__('admin.Delete Failed')], 400);
-        // }
+        }
         // flash()->success(trans('admin.Delete successfull'));
         // return ()
         // return back();
