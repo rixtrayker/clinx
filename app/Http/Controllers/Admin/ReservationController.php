@@ -155,7 +155,8 @@ class ReservationController extends Administrator
             if ($row->extra) {
                 $row->total = $row->total + $row->extra;
             }
-            $row->created_at = date('Y-m-d');
+            $row->created_date = date('Y-m-d');
+
             $last=Reservation::whereNull('extra')->whereDate('created_at', '=', date('Y-m-d'))->count();
             // if ($last > 0) {
             //     $last =$last+1;

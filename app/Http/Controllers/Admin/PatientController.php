@@ -62,6 +62,7 @@ class PatientController extends Controller
 
 
 
+
         return view('admin.' . $this->module . '.create', ["clinics"=>$clinics,"govs"=>$govs,"cities"=>$cities,
         "vaccinations"=>$vaccinations,"patient_number"=>$patient_number,'row' => $row, 'module' => $this->module]);
 
@@ -103,6 +104,36 @@ class PatientController extends Controller
 
     public function update(Request $request, $id)
     {
+        if($request->city_id){
+            $request->merge(["city"=>\App\Models\City::where("id",$request->city_id)->first()->title]);
+          }
+          if($request->gov_id){
+            $request->merge(["gov"=>\App\Models\Government::where("id",$request->gov_id)->first()->title]);
+          }
+          if($request->dose_id){
+            $request->merge(["dose"=>\App\Models\Vaccination::where("id",$request->dose_id)->first()->title]);
+          }
+          if($request->clinic_id){
+            $request->merge(["clinic"=>\App\Models\Clinic::where("id",$request->clinic_id)->first()->title]);
+          }
+          if($request->how_know_us){
+            $request->merge(["how_know_us"=>implode(",",$request->how_know_us)]);
+          }
+          if($request->chronic_diseases){
+            $request->merge(["chronic_diseases"=>implode(",",$request->chronic_diseases)]);
+          }
+          if($request->family_chronic_diseases){
+            $request->merge(["family_chronic_diseases"=>implode(",",$request->family_chronic_diseases)]);
+          }
+          if($request->father_chronic_diseases){
+            $request->merge(["father_chronic_diseases"=>implode(",",$request->father_chronic_diseases)]);
+          }
+          if($request->father_family_chronic_diseases){
+            $request->merge(["father_family_chronic_diseases"=>implode(",",$request->father_family_chronic_diseases)]);
+          }
+          if($request->chiled_chronic_diseases){
+            $request->merge(["chiled_chronic_diseases"=>implode(",",$request->chiled_chronic_diseases)]);
+          }
         $row = $this->patientService->update($request->except([]), $id);
         if ($row) {
             flash()->success(trans('admin.Edit successfull'));
@@ -124,6 +155,5 @@ class PatientController extends Controller
         // flash()->success(trans('admin.Delete successfull'));
         // return ()
         // return back();
-
     }
 }

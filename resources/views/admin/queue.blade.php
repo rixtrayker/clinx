@@ -26,7 +26,7 @@ whereDate('created_date', date('Y-m-d'))->orderBy("created_date","asc")->get();
     <div class="card-body">
 
 
-        <div class="text-center">
+        <div class="text-right">
             <h2 >
             <a class="btn-lg btn-primary py-2 px-2" href="{{route('patients.index')}}">
                     {{__('admin.Children')}} <i data-feather="users"></i>
@@ -70,71 +70,77 @@ whereDate('created_date', date('Y-m-d'))->orderBy("created_date","asc")->get();
                 </div>
             </div>
         </div>
+        <br>
+        <div class="text-center mb-4">
+            <a href="{{url('/admin/next-patient')}}" class="btn btn-lg btn-success ">ادخال المريض التالى</a>
+        </div>
+        <div class="row">
 
-        <div class="table-responsive">
-            <table class="table tabel-stripped">
-                <tbody>
-                    <tr class="text-lg bold">
-                        <td class="text-center">اسم الطفل</td>
-                        <td class="text-center">رقم ملف</td>
-                        <td class="text-center">رقم الدور</td>
-                        <td class="text-center">الحجز</td>
-                        <td class="text-center">نوع الحجز</td>
-                        <td class="text-center">الاجراءات</td>
-                    </tr>
+            <div class="table-responsive offset-2 col-md-8">
+                <table class="table tabel-stripped">
+                    <tbody>
+                        <tr class="text-lg bold">
+                            <td class="text-center">اسم الطفل</td>
+                            <td class="text-center">رقم ملف</td>
+                            <td class="text-center">رقم الدور</td>
+                            <td class="text-center">الحجز</td>
+                            <td class="text-center">نوع الحجز</td>
+                            <td class="text-center">الاجراءات</td>
+                        </tr>
 
-                    @foreach($rowsE as $row)
-                      <tr>
-                        <td>{{$row->name}}</td>
-                        <td>{{$row->patient_number}}</td>
-                        <td></td>
-                        <td>@if($row->reservation_type == 1)
-                          كشف
-                          @elseif($row->reservation_type == 2)
-                          استشارة
-                          @elseif($row->reservation_type == 3)
-                          تطعيم
-                          @endif
-                        </td>
-                        <td>
-                          مستعجل
-                        </td>
-                        <td><a class="btn btn-danger" href="{{url('/admin/patients/delete-reservation/'.$row->id)}}">مسح الحجز</a></td>
-                      </tr>
-                    @endforeach
-                    @php
-                    $nRowsN = App\Models\Reservation::whereNull("extra")->whereIn("status",[0,1,2])->
-                    whereDate('created_date', date('Y-m-d'))->orderBy("created_date","asc")->pluck('id')->toArray();
-                    @endphp
-                    @foreach($rowsN as $row)
-                      <tr>
-                        <td>{{$row->name}}</td>
-                        <td>{{$row->patient_number}}</td>
-                        <td>
-                            @php
+                        @foreach($rowsE as $row)
+                        <tr class="text-center">
+                            <td>{{$row->name}}</td>
+                            <td>{{$row->patient_number}}</td>
+                            <td></td>
+                            <td>@if($row->reservation_type == 1)
+                            كشف
+                            @elseif($row->reservation_type == 2)
+                            استشارة
+                            @elseif($row->reservation_type == 3)
+                            تطعيم
+                            @endif
+                            </td>
+                            <td>
+                            مستعجل
+                            </td>
+                            <td><a class="btn btn-danger" href="{{url('/admin/patients/delete-reservation/'.$row->id)}}">مسح الحجز</a></td>
+                        </tr>
+                        @endforeach
+                        @php
+                        $nRowsN = App\Models\Reservation::whereNull("extra")->whereIn("status",[0,1,2])->
+                        whereDate('created_date', date('Y-m-d'))->orderBy("created_date","asc")->pluck('id')->toArray();
+                        @endphp
+                        @foreach($rowsN as $row)
+                        <tr class="text-center">
+                            <td>{{$row->patient->name}}</td>
+                            <td>{{$row->patient_number}}</td>
+                            <td>
+                                @php
 
-                                    $n= array_search($row->id,$nRowsN)+1;
-                            @endphp
-                            {{$n}}
-                            {{-- {{$loop->iteration}} --}}
-                        </td>
-                        <td>@if($row->reservation_type == 1)
-                          كشف
-                          @elseif($row->reservation_type == 2)
-                          استشارة
-                          @elseif($row->reservation_type == 3)
-                          تطعيم
-                          @endif
-                        </td>
-                        <td>
-                          عادي
-                          </td>
-                        <td><a class="btn btn-danger" href="{{url('/admin/delete-reservation/'.$row->id)}}">مسح الحجز</a></td>
-                      </tr>
-                    @endforeach
+                                        $n= array_search($row->id,$nRowsN)+1;
+                                @endphp
+                                {{$n}}
+                                {{-- {{$loop->iteration}} --}}
+                            </td>
+                            <td>@if($row->reservation_type == 1)
+                            كشف
+                            @elseif($row->reservation_type == 2)
+                            استشارة
+                            @elseif($row->reservation_type == 3)
+                            تطعيم
+                            @endif
+                            </td>
+                            <td>
+                            عادي
+                            </td>
+                            <td><a class="btn btn-danger" href="{{url('/admin/delete-reservation/'.$row->id)}}">مسح الحجز</a></td>
+                        </tr>
+                        @endforeach
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 

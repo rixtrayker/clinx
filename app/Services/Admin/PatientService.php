@@ -67,7 +67,6 @@ class PatientService
         if ($row) {
             SaveActionLog();
         }
-
         return $row;
     }
 
@@ -87,10 +86,9 @@ class PatientService
     {
         request()->validate($this->rules, $this->errors);
 
-
+        // dd($data['chronic_diseases']);
         $row = $this->show($id);
         // $row->permissions()->sync($data['permission_id']);
-
         try {
             $row->update($data);
             return true;
@@ -98,6 +96,7 @@ class PatientService
             return null;
         }
     }
+
     public function destroy($id)
     {
         $row = $this->show($id);

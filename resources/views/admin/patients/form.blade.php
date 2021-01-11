@@ -93,14 +93,14 @@
             {!! Form::rawLabel($input,trans('admin.Address'),['class' => 'col-form-label col-form-label-lg']) !!}
             <div class="row">
                 <div class="col-md-4">
-                  {!! Form::select($input,$govs,null,['class'=>'form-control select2 inline' ,"placeholder"=>trans('admin.Governments')]) !!}
+                  {!! Form::select($input,$govs, $row? $row->gov_id : null,['class'=>'form-control select2 inline' ,"placeholder"=>trans('admin.Governments')]) !!}
                     @foreach($errors->get($input) as $message)
                     <span class = 'help-inline text-danger'>{{ $message }}</span>
                     @endforeach
                 </div>
                 <div class="col-md-4">
                     @php $input='city_id'; @endphp
-                    {!! Form::select($input,$cities,null,['class'=>'form-control select2 inline' ,"placeholder"=>trans('admin.Cities')]) !!}
+                    {!! Form::select($input,$cities, $row? $row->city_id : null,['class'=>'form-control select2 inline' ,"placeholder"=>trans('admin.Cities')]) !!}
                     @foreach($errors->get($input) as $message)
                     <span class = 'help-inline text-danger'>{{ $message }}</span>
                     @endforeach

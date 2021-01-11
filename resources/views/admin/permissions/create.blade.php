@@ -73,6 +73,9 @@
 @endsection
 
 @section('page-script')
+
+<script>
+
 var select = $('.select2');
 select.each(function () {
   var $this = $(this);
@@ -85,4 +88,5 @@ select.each(function () {
     dropdownParent: $this.parent()
   });
 });
+</script>
 @endsection

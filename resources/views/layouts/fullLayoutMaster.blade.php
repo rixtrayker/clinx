@@ -22,7 +22,7 @@ $configData = Helper::applClasses();
   @include('panels/styles')
 
   {{-- Include core + vendor Styles --}}
-  @include('panels/styles')
+  {{-- @include('panels/styles') --}}
 </head>
 
 

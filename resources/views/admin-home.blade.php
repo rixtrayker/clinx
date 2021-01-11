@@ -66,8 +66,10 @@
                 </div>
                 </div>
             </div>
-            </div>
         </div>
+    </div>
+    <br>
+    
 </div>
 
 @endsection

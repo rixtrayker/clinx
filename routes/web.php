@@ -11,7 +11,8 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ReservationController;
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\Admin\HomeController;
+
 use App\Models\Reservation;
 
 use App\Models\Role;
@@ -51,7 +52,8 @@ Route::group([
     'middleware' => ['admin.auth'],
 ], function () {
 
-    Route::get('/', [AdminHomeController::class,'index'])->name('admin.home');
+    Route::get('/', [HomeController::class,'index'])->name('admin.home');
+
 
     // Route::get('/', function (){
     //     dd(1);
@@ -63,6 +65,10 @@ Route::group([
     Route::resource('permissions', PermissionController::class);
     Route::resource('patients', PatientController::class);
     Route::get('delete-reservation/{id}', [ReservationController::class,'deleteReservation']);
+    Route::get('/next-patient', [HomeController::class,'nextPatient']);
+    Route::post('/reports', [HomeController::class,'getReports'])->name('admin.reports');
+    Route::get('/reports', [HomeController::class,'getReports'])->name('admin.reports.get');
+
 
 
     // Route::get('update-password', [AdminController::class, 'getUpdatePassword']);

@@ -5,7 +5,7 @@
 
    <!-- Vertical modal -->
    <div class="vertical-modal-ex">
-    
+
     <!-- Modal -->
     <div
       class="modal fade"
@@ -36,7 +36,7 @@
                         <select id="reservation_type" name="reservation_type" required class="select2 form-control mx-1 col-md-4" style="width: 100%">
                         <option selected value="1">كشف</option>
                         <option value="2">استشارة</option>
-                        <option value="2">تطعيم</option>
+                        <option value="3">تطعيم</option>
                         </select>
                     </div>
                     <div class="row form-group">
@@ -53,7 +53,7 @@
           <div class="modal-footer">
               <div class="row text-center">
                   <button type="submit"  id="reserveBTN" class="btn btn-success" data-dismiss="modal">{{__('admin.Create')}}</button>
-                  
+
               </div>
           </div>
         </div>

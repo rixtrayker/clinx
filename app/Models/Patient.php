@@ -18,4 +18,17 @@ class Patient extends BaseModel
     protected $hidden = ['password', 'remember_token', 'confirmed', 'published',
         'admin_id', 'reset_token', 'confirm_token', 'token', 'updated_at'];
 
+    // protected $casts = [
+    //     'chronic_diseases' => 'array',
+    // ];
+
+    // public function setChronicDiseasesAttribute($value)
+    // {
+    //     $this->attributes['chronic_diseases'] = json_encode($value);
+    // }
+    // public function getChronicDiseasesAttribute()
+    // {
+    //     return json_decode($this->attributes['chronic_diseases'] );
+    // }
+
 }
