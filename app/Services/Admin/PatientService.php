@@ -51,7 +51,8 @@ class PatientService
     }
     public function json_index()
     {
-        $rows = Patient::select('id', 'patient_number', 'name', 'telephone', 'clinic')->get();
+        $rows = Patient::latest()->select('id', 'patient_number', 'name', 'telephone', 'clinic')->get();
+
         return $rows->toJson();
 
     }
@@ -59,7 +60,6 @@ class PatientService
     public function store($data)
     {
         request()->validate($this->rules, $this->errors);
-
         $data['guard_name'] = 'admin';
 
         $row = Patient::create($data);
@@ -85,7 +85,6 @@ class PatientService
     public function update($data, $id)
     {
         request()->validate($this->rules, $this->errors);
-
         // dd($data['chronic_diseases']);
         $row = $this->show($id);
         // $row->permissions()->sync($data['permission_id']);

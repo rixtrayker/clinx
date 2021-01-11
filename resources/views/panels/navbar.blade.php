@@ -145,7 +145,7 @@
         <li class="nav-item dropdown dropdown-user">
             <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="user-nav d-sm-flex d-none">
-                <span class="user-name font-weight-bolder">{{auth()->guard('admin')->user()->name}}</span>
+                <span class="user-name font-weight-bolder"> {{ auth()->guard('admin')->check() ? auth()->guard('admin')->user()->name : auth()->guard('web')->user()->name  }} </span>
                 <span class="user-status">{{__('admin.Admin')}}</span>
               </div>
               <span class="avatar">
@@ -160,7 +160,7 @@
               {{-- <a id="logout_a" class="dropdown-item" href="javascript:void(0);">
                   <i class="mr-50" data-feather="power"></i> Logout
               </a> --}}
-                  <form id="logout" action="{{url('/admin/logout')}}" method="POST">
+                  <form id="logout" action="{{auth()->guard('admin')->check() ?url('/admin/logout'):url('/logout')}}" method="POST">
                       @csrf
                       <button style="width:100%" class="btn dropdown-item"><i class="mr-50" data-feather="power"></i> Logout</button>
                   </form>
@@ -245,7 +245,7 @@
             <img src="{{asset('images/portrait/small/avatar-s-8.jpg')}}" alt="png" height="32">
           </div>
           <div class="search-data">
-            <p class="search-data-title mb-0">{{auth()->guard('admin')->user()->name}}</p>
+            <p class="search-data-title mb-0">{{ auth()->guard('admin')->check() ? auth()->guard('admin')->user()->name : auth()->guard('web')->user()->name  }}</p>
             <small class="text-muted">UI designer</small>
           </div>
         </div>

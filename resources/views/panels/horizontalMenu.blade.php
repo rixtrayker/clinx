@@ -39,8 +39,11 @@ $configData = Helper::applClasses();
     <div class="navbar-container main-menu-content" data-menu="menu-container">
       <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
       {{-- Foreach menu item starts --}}
-        @if(isset($menuData[1]))
-        @foreach($menuData[1]->menu as $menu)
+        @if(isset($menuData[1]) || isset($menuData[2]))
+        @php
+            $menus = (auth()->guard('admin')->check()?$menuData[1]->menu : $menuData[2]->menu );
+        @endphp
+        @foreach( $menus as $menu)
         @php
         $custom_classes = "";
         if(isset($menu->classlist)) {

@@ -76,37 +76,37 @@
                                 <tbody>
                                     <tr>
                                         <td>@lang('admin.File number')</td>
-                                        <td>{{$row->patient_number}}</td>
+                                        <td>{{@$row->patient_number}}</td>
                                         <td>@lang('admin.Gender')</td>
-                                        <td>{{$row->gender}} </td>
+                                        <td>{{@$row->gender}} </td>
                                     </tr>
                                     <tr>
                                         <td>@lang('admin.Child name')</td>
-                                        <td>{{$row->name}}</td>
+                                        <td>{{@$row->name}}</td>
                                         <td>@lang('admin.Age')</td>
-                                        <td>{{$row->age}}</td>
+                                        <td>{{@$row->age}}</td>
                                     </tr>
                                     <tr>
                                         <td>@lang('admin.Father job')</td>
-                                        <td>{{$row->father_job}}</td>
+                                        <td>{{@$row->father_job}}</td>
                                         <td>@lang('admin.Mother job')</td>
-                                        <td>{{$row->mother_job}}</td>
+                                        <td>{{@$row->mother_job}}</td>
                                     </tr>
                                     <tr>
                                         <td>@lang('admin.Telephone')</td>
-                                        <td>{{$row->telephone}}</td>
+                                        <td>{{@$row->telephone}}</td>
                                         <td>@lang('admin.Address')</td>
-                                        <td>{{$row->giv}} - {{$row->city}} </td>
+                                        <td>{{@$row->giv}} - {{@$row->city}} </td>
                                     </tr>
                                     <tr>
                                         <td>@lang('admin.Whatsapp')</td>
-                                        <td>{{$row->whatsapp}}</td>
+                                        <td>{{@$row->whatsapp}}</td>
                                         <td>@lang('admin.Clinic')</td>
-                                        <td>{{$row->clinic}}</td>
+                                        <td>{{@$row->clinic}}</td>
                                     </tr>
                                     <tr>
                                         <td>@lang('admin.Birthdate')</td>
-                                        <td>{{$row->birthdate}}</td>
+                                        <td>{{@$row->birthdate}}</td>
                                         <td></td>
                                         <td></td>
                                     </tr>

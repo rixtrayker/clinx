@@ -36,7 +36,8 @@ Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
 
 Route::group(
     [
-    'middleware' => ['admin.auth'],
+    // 'middleware' => ['admin.auth'],
+
 ],
     function () {
         Route::post('patients/reserve', 'ReservationController@reserve')->name('patient.res.post');

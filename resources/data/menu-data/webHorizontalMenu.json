@@ -28,27 +28,11 @@
             "icon": "users",
             "slug": "children"
           },
-
-          {
-            "url": "admin/roles",
-            "name": "Roles",
-            "icon": "briefcase",
-            "slug": "roles"
-          },
-        {
-            "url": "admin/permissions",
-            "name": "Permissions",
-            "icon": "key",
-            "slug": "permissions"
-          },
         {
             "url": "admin/current",
             "name": "Current",
             "icon": "refresh-cw",
             "slug": "current"
           }
-
-
-
     ]
   }
