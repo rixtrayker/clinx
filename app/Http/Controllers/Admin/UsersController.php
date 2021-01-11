@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
-use App\Models\User;
+use App\Models\Admin;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class UsersController extends Controller
+class adminsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,17 +20,20 @@ class UsersController extends Controller
     private $model;
     public function __constructor()
     {
-        $this->module = 'users';
-        $this->model = new User;
+        $this->module = 'admins';
+        $this->model = new Admin;
+
     }
 
     public function index()
     {
-        $rows = User::all();
+        $rows = Admin::all();
 
-        return view('admin.users.index', [
+
+
+        return view('admin.admins.index', [
             'rows'=>$rows,
-            'module'=>'users',
+            'module'=>'admins',
         ]);
     }
 
@@ -37,11 +41,11 @@ class UsersController extends Controller
     public function create()
     {
         $row = $this->model;
-        $roles = Role::where('guard_name', 'web')->pluck('name', 'id');
-        return view('admin.users.create', [
+        $roles = Role::where('guard_name', 'admin')->pluck('name', 'id');
+        return view('admin.admins.create', [
             'row'=>$row,
             'roles'=>$roles,
-            'module'=>'users',
+            'module'=>'admins',
         ]);
     }
 
@@ -54,16 +58,18 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $rules=[
-            'email'=>'required|email',
+            'email'=>'required|email|unique:admins,email',
             'password'=>'required|min:4',
             'role_id'=>'required',
         ];
 
         $request->validate($rules);
         $request['password'] = Hash::make($request['password']);
-        $row = User::create($request->except(['role_id','_token']));
+        $row = Admin::create($request->except(['role_id','_token']));
+
         $row->assignRole($request['role_id']);
-        return redirect(route('users.index'));
+        return redirect(route('admins.index'));
+
     }
 
     /**
@@ -84,12 +90,13 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $row = User::findOrFail($id);
-        $roles = Role::where('guard_name', 'web')->pluck('name', 'id');
-        return view('admin.users.edit', [
+        $row = Admin::findOrFail($id);
+
+        $roles = Role::where('guard_name', 'admin')->pluck('name', 'id');
+        return view('admin.admins.edit', [
             'row'=>$row,
             'roles'=>$roles,
-            'module'=>'users',
+            'module'=>'admins',
         ]);
     }
 
@@ -103,13 +110,14 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'email'=>'required|email',
+            'email'=>'required|email|unique:admins,email,'.$id,
             'password'=>'nullable|min:4',
             'role_id'=>'required',
         ];
 
         $request->validate($rules);
-        $row = User::findOrFail($id);
+        $row = Admin::findOrFail($id);
+
 
         if (filled($request['password'])) {
             $request['password'] = Hash::make($request['password']);
@@ -119,7 +127,8 @@ class UsersController extends Controller
         }
         $row->syncRoles($request['role_id']);
 
-        return redirect(route('users.index'));
+        return redirect(route('admins.index'));
+
     }
 
     /**
@@ -130,11 +139,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $row = User::findOrFail($id);
+        $row = Admin::findOrFail($id);
+
         if ($row) {
             $row->delete();
         }
 
-        return redirect(route('users.index'));
+        return redirect(route('admins.index'));
+
     }
 }

@@ -187,5 +187,6 @@ return [
   "Dashboard" => "Dashboard",
   "Current" => "Current",
   "Queue" => "Queue",
+  "Users" => "Users",
 
 ];
