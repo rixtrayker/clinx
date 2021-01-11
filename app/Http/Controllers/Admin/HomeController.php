@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Config;
 use App\Models\Patient;
 use App\Models\Reservation;
+use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Auth;
+
 
 class HomeController extends Controller
 {
@@ -179,6 +182,10 @@ class HomeController extends Controller
 
     public function getQueue()
     {
-        return view('admin.queue');
+        $user = Auth::user();
+        $user = $user ? $user : Auth::guard('admin')->user();
+        // $user->givePermissionTo('users.edit');
+        // if($user->can('users.edit'))
+            return view('admin.queue');
     }
 }
