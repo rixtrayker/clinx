@@ -4,34 +4,40 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
-use App\Models\Admin;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class adminsController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    private $module;
-    private $model;
-    public function __constructor()
-    {
-        $this->module = 'admins';
-        $this->model = new Admin;
 
+class UserController extends Controller {
+
+    public $model;
+    public $module;
+    public $rules;
+
+    public function __construct(User $model) {
+        parent::__construct();
+        $this->module = 'users';
+        $this->model = $model;
+        $this->rules = [
+            'name' => 'required',
+            'mobile' => 'required',
+            'email' => 'required|email|unique:users,email',
+            "password" => "required",
+        ];
     }
+
+
+
 
     public function index()
     {
-        $rows = Admin::all();
+        $rows = User::all();
 
-        return view('admin.admins.index', [
+        return view('admin.users.index', [
             'rows'=>$rows,
-            'module'=>'admins',
+            'module'=>'users',
         ]);
     }
 
@@ -40,10 +46,10 @@ class adminsController extends Controller
     {
         $row = $this->model;
         $roles = Role::where('guard_name', 'admin')->pluck('name', 'id');
-        return view('admin.admins.create', [
+        return view('admin.users.create', [
             'row'=>$row,
             'roles'=>$roles,
-            'module'=>'admins',
+            'module'=>'users',
         ]);
     }
 
@@ -56,17 +62,17 @@ class adminsController extends Controller
     public function store(Request $request)
     {
         $rules=[
-            'email'=>'required|email|unique:admins,email',
+            'email'=>'required|email|unique:users,email',
             'password'=>'required|min:4',
             'role_id'=>'required',
         ];
 
         $request->validate($rules);
         $request['password'] = Hash::make($request['password']);
-        $row = Admin::create($request->except(['role_id','_token']));
+        $row = User::create($request->except(['role_id','_token']));
 
         $row->assignRole($request['role_id']);
-        return redirect(route('admins.index'));
+        return redirect(route('users.index'));
 
     }
 
@@ -88,13 +94,13 @@ class adminsController extends Controller
      */
     public function edit($id)
     {
-        $row = Admin::findOrFail($id);
+        $row = User::findOrFail($id);
 
         $roles = Role::where('guard_name', 'admin')->pluck('name', 'id');
-        return view('admin.admins.edit', [
+        return view('admin.users.edit', [
             'row'=>$row,
             'roles'=>$roles,
-            'module'=>'admins',
+            'module'=>'users',
         ]);
     }
 
@@ -108,13 +114,13 @@ class adminsController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'email'=>'required|email|unique:admins,email,'.$id,
+            'email'=>'required|email|unique:users,email,'.$id,
             'password'=>'nullable|min:4',
             'role_id'=>'required',
         ];
 
         $request->validate($rules);
-        $row = Admin::findOrFail($id);
+        $row = User::findOrFail($id);
 
 
         if (filled($request['password'])) {
@@ -125,7 +131,7 @@ class adminsController extends Controller
         }
         $row->syncRoles($request['role_id']);
 
-        return redirect(route('admins.index'));
+        return redirect(route('users.index'));
 
     }
 
@@ -137,13 +143,13 @@ class adminsController extends Controller
      */
     public function destroy($id)
     {
-        $row = Admin::findOrFail($id);
+        $row = User::findOrFail($id);
 
         if ($row) {
             $row->delete();
         }
 
-        return redirect(route('admins.index'));
+        return redirect(route('users.index'));
 
     }
 }
