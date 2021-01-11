@@ -29,8 +29,6 @@ class adminsController extends Controller
     {
         $rows = Admin::all();
 
-
-
         return view('admin.admins.index', [
             'rows'=>$rows,
             'module'=>'admins',

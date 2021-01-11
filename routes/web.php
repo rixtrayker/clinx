@@ -15,9 +15,7 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\HomeController;
 
-use App\Models\Reservation;
 
-use App\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +45,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('admin-home');
 });
-Auth::routes();
+Auth::routes(['register' => false]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -64,9 +62,11 @@ Route::group([
     Route::get('patients/json-index',[PatientController::class,'json_index'])->name('patients.json-index');
     Route::resource('users', UsersController::class);
     Route::resource('roles', RoleController::class);
+    Route::resource('admins', AdminController::class);
+
     Route::resource('permissions', PermissionController::class);
     Route::resource('patients', PatientController::class);
-    Route::get('delete-reservation/{id}', [ReservationController::class,'deleteReservation']);
+    Route::get('delete-/{id}', [Controller::class,'delete']);
     Route::get('/next-patient', [HomeController::class,'nextPatient']);
     Route::post('/reports', [HomeController::class,'getReports'])->name('admin.reports');
     Route::get('/reports', [HomeController::class,'getReports'])->name('admin.reports.get');
