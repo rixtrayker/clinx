@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\UserController;
+
 
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PatientController;
@@ -53,14 +54,15 @@ Route::group([
     'prefix' => 'admin',
     // 'as'=>'admin.',
 
-    // 'middleware' => ['admin.auth'],
+    'middleware' => ['auth'],
 ], function () {
 
     Route::get('/', [HomeController::class,'index'])->name('admin.home');
 
     Route::get('roles/get-data',[RoleController::class,'index_data'])->name('roles.get-data');
     Route::get('patients/json-index',[PatientController::class,'json_index'])->name('patients.json-index');
-    Route::resource('users', UsersController::class);
+    Route::resource('users', UserController::class);
+
     Route::resource('roles', RoleController::class);
     Route::resource('admins', AdminController::class);
 

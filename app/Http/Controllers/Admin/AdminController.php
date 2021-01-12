@@ -29,7 +29,7 @@ class AdminController extends Controller {
     public $rules;
 
     public function __construct(Admin $model) {
-        parent::__construct();
+        $this->middleware('admin.auth:admin');
         $this->module = 'admins';
         $this->model = $model;
         $this->rules = [

@@ -19,11 +19,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        // $this->middleware('admin.auth:admin');
-
-    }
 
     /**
      * Show the Admin dashboard.

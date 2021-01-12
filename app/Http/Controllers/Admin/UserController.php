@@ -17,7 +17,6 @@ class UserController extends Controller {
     public $rules;
 
     public function __construct(User $model) {
-        parent::__construct();
         $this->module = 'users';
         $this->model = $model;
         $this->rules = [
