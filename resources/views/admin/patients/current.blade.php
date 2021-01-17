@@ -124,7 +124,118 @@
                     </div>
 
 
-                    <div aria-labelledby="fmh-tab" class="tab-pane fade" id="fmh" role="tabpanel">...</div>
+                    <div aria-labelledby="fmh-tab" class="tab-pane fade" id="fmh" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>@lang('admin.admin.father_mother_kindred')</td>
+                                        <td>@if(@$row->father_mather_kindred) @if(@$row->father_mather_kindred ==1) نعم @else لأ @endif  @endif</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>هل هناك امراض مزمنة عند
+
+                                        </td>
+                                        <td>
+                                            @if(@$row->father_chronic_diseases)
+                                            @if(strpos(@$row->father_chronic_diseases, '1') !== false)
+                                            الأب
+                                            @endif
+                                            -
+                                            @if(strpos(@$row->father_chronic_diseases, '2') !== false)
+                                            الأم
+                                            @endif
+                                            @endif
+                                        </td>
+                                        <td>@lang('admin.father_chronic_diseases')</td>
+                                        <td>@if(@$row->chronic_diseases)
+                                            @if(strpos(@$row->chronic_diseases, '1') !== false)
+                                             الضغط
+                                             <br>
+                                            @endif
+                                            @if(strpos(@$row->chronic_diseases, '2') !== false)
+                                            السكر
+                                            <br>
+                                            @endif
+                                            @if(strpos(@$row->chronic_diseases, '3') !== false)
+                                            حساسية الانف
+                                            <br>
+                                            @endif
+                                            @if(strpos(@$row->chronic_diseases, '4') !== false)
+                                            حساسية الصدر
+                                            <br>
+                                            @endif
+                                            @if(strpos(@$row->chronic_diseases, '5') !== false)
+                                            حساسية الجليد
+                                            <br>
+                                            @endif
+                                            @if(strpos(@$row->chronic_diseases, '6') !== false)
+                                            ايمياالفول
+                                            @endif
+                                            @endif</td>
+                                    </tr>
+                                    <tr>
+                                        <td>هل هناك اى امراض وراثية فى العائلة؟</td>
+                                        <td>
+                                        @if(@$row->family_genetic_diseases)
+                                            نعم
+                                            -
+                                            {{@$row->family_genetic_diseases}}
+                                        @endif
+                                        </td>
+                                        <td>@lang('admin.father_family_chronic_diseases')</td>
+                                        <td>@if(@$row->family_chronic_diseases)
+                                            @if(strpos(@$row->family_chronic_diseases, '1') !== false)
+                                             الضغط
+                                             <br>
+                                            @endif
+                                            @if(strpos(@$row->family_chronic_diseases, '2') !== false)
+                                            السكر
+                                            <br>
+                                            @endif
+                                            @if(strpos(@$row->family_chronic_diseases, '3') !== false)
+                                            حساسية الانف
+                                            <br>
+                                            @endif
+                                            @if(strpos(@$row->family_chronic_diseases, '4') !== false)
+                                            حساسية الصدر
+                                            <br>
+                                            @endif
+                                            @if(strpos(@$row->family_chronic_diseases, '5') !== false)
+                                            حساسية الجليد
+                                            <br>
+                                            @endif
+                                            @if(strpos(@$row->family_chronic_diseases, '6') !== false)
+                                            ايمياالفول
+                                            @endif
+                                            @endif
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>هل هناك اى امراض وراثية فى العائلة؟</td>
+                                        <td>
+                                          @if(@$row->family_genetic_diseases)
+                                            نعم
+                                            -
+                                            {{@$row->family_genetic_diseases}}
+                                          @endif
+                                        </td>
+                                        <td>هل هناك اى امراض وراثية عند اخواتة؟</td>
+                                        <td>
+                                          @if(@$row->brothers_genetic_diseases)
+                                            نعم
+                                            -
+                                            {{@$row->brothers_genetic_diseases}}
+                                          @endif
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div aria-labelledby="cmh-tab" class="tab-pane fade" id="cmh" role="tabpanel">...</div>
                     <div aria-labelledby="diag-tab" class="tab-pane fade" id="diag" role="tabpanel">...</div>
                     <div aria-labelledby="vacc-tab" class="tab-pane fade" id="vacc" role="tabpanel">...</div>
